@@ -5,11 +5,17 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp" >
 
+    <ListView
+        android:id="@+id/list_view_people"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/button_add_person"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/list_view_people"
         android:layout_centerHorizontal="true"
-        android:text="Add Person" />
+        android:text="add person" />
+
 </RelativeLayout>

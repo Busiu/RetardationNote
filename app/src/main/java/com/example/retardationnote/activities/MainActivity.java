@@ -5,51 +5,41 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.example.retardationnote.R;
+import com.example.retardationnote.adapters.PeopleAdapter;
 import com.example.retardationnote.dialogs.AddPersonDialog;
-import com.example.retardationnote.utils.Person;
+import com.example.retardationnote.model.Person;
+import com.example.retardationnote.utils.NoDuplicateArrayList;
 
-import java.util.HashSet;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AddPersonDialog.AddPersonDialogListener {
 
     private Button buttonAddPerson;
+    private ListView listViewPeople;
+    private PeopleAdapter peopleAdaper;
 
-    private HashSet<Person> people = new HashSet<>();
+    private NoDuplicateArrayList<Person> people = new NoDuplicateArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        buttonAddPerson = findViewById(R.id.button_add_person);
+        people.add(new Person("Piotr"));
+        people.add(new Person("Busiu"));
 
+        listViewPeople = findViewById(R.id.list_view_people);
+        peopleAdaper = new PeopleAdapter(getApplicationContext(), R.layout.list_view_people, people);
+        listViewPeople.setAdapter(peopleAdaper);
+
+        buttonAddPerson = findViewById(R.id.button_add_person);
         buttonAddPerson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openDialogAddPerson();
             }
         });
-
-        /*
-        addPersonButton = findViewById(R.id.addPersonButton);
-        addPersonEditText = findViewById(R.id.addPersonEditText);
-
-        addPersonButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String nickname = addPersonEditText.getText().toString();
-                System.out.println("lol");
-                if(!nickname.equals("")) {
-                    people.add(new Person(nickname));
-                    Toast.makeText(getApplicationContext(), Integer.toString(people.size()), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        */
-
-        //TODO: Sprobowac z GSON
     }
 
     @Override
@@ -58,7 +48,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openDialogAddPerson() {
-        AddPersonDialog addPersonDialog = AddPersonDialog.newInstance(people);
+        AddPersonDialog addPersonDialog = new AddPersonDialog();
         addPersonDialog.show(getSupportFragmentManager(), "Adding Person");
+    }
+
+    @Override
+    public void addPerson(String nickname) {
+        peopleAdaper.addPerson(nickname);
     }
 }
