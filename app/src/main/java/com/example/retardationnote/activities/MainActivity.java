@@ -5,32 +5,34 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.retardationnote.R;
+import com.example.retardationnote.dialogs.AddPersonDialog;
 import com.example.retardationnote.utils.Person;
 
 import java.util.HashSet;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button addPersonButton;
-    private EditText addPersonEditText;
+    private Button buttonAddPerson;
 
     private HashSet<Person> people = new HashSet<>();
-
-    //private static final String user1 = "Bułor";
-    //private static final String user2 = "Busiu";
-
-    //private Person retardationList1;
-    //private Person retardationList2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        buttonAddPerson = findViewById(R.id.button_add_person);
+
+        buttonAddPerson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialogAddPerson();
+            }
+        });
+
+        /*
         addPersonButton = findViewById(R.id.addPersonButton);
         addPersonEditText = findViewById(R.id.addPersonEditText);
 
@@ -45,19 +47,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        */
+
         //TODO: Sprobowac z GSON
-
-        //retardationList1 = new Person(getApplicationContext(), user1);
-        //retardationList1.load();
-
-        //retardationList2 = new Person(getApplicationContext(), user2);
-        //retardationList2.load();
     }
 
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
 
-        //retardationList1.save();
-        //retardationList2.save();
+    private void openDialogAddPerson() {
+        AddPersonDialog addPersonDialog = AddPersonDialog.newInstance(people);
+        addPersonDialog.show(getSupportFragmentManager(), "Adding Person");
     }
 }

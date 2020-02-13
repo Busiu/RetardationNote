@@ -4,15 +4,12 @@
     android:layout_height="match_parent"
     android:paddingLeft="16dp"
     android:paddingRight="16dp" >
-    <EditText
-        android:id="@+id/addPersonEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Person Name" />
+
     <Button
-        android:id="@+id/addPersonButton"
-        android:layout_width="96dp"
+        android:id="@+id/button_add_person"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:text="Add Person" />
 </RelativeLayout>
