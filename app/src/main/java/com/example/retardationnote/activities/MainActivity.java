@@ -2,8 +2,10 @@ package com.example.retardationnote.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -30,8 +32,15 @@ public class MainActivity extends AppCompatActivity implements AddPersonDialog.A
         people.add(new Person("Busiu"));
 
         listViewPeople = findViewById(R.id.list_view_people);
-        peopleAdaper = new PeopleAdapter(getApplicationContext(), R.layout.list_view_people, people);
+        peopleAdaper = new PeopleAdapter(this, R.layout.list_view_people, people);
         listViewPeople.setAdapter(peopleAdaper);
+        listViewPeople.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, PersonActivity.class);
+                startActivity(intent);
+            }
+        });
 
         buttonAddPerson = findViewById(R.id.button_add_person);
         buttonAddPerson.setOnClickListener(new View.OnClickListener() {

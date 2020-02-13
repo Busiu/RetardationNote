@@ -32,7 +32,6 @@ public class PeopleAdapter extends ArrayAdapter<Person> {
     }
 
     private class ViewHolder {
-        private Button buttonDetails;
         private Button buttonRemove;
         private TextView textViewNickname;
         private TextView textViewPoints;
@@ -47,7 +46,6 @@ public class PeopleAdapter extends ArrayAdapter<Person> {
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());
             convertView = layoutInflater.inflate(R.layout.list_view_people, parent, false);
 
-            viewHolder.buttonDetails = convertView.findViewById(R.id.button_details);
             viewHolder.buttonRemove = convertView.findViewById(R.id.button_remove);
             viewHolder.textViewNickname = convertView.findViewById(R.id.text_view_nickname);
             viewHolder.textViewPoints = convertView.findViewById(R.id.text_view_points);
