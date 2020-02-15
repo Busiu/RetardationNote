@@ -15,7 +15,8 @@ import com.example.retardationnote.dialogs.AddPersonDialog;
 import com.example.retardationnote.model.Person;
 import com.example.retardationnote.utils.NoDuplicateArrayList;
 
-public class MainActivity extends AppCompatActivity implements AddPersonDialog.AddPersonDialogListener {
+public class MainActivity extends AppCompatActivity implements
+        AddPersonDialog.AddPersonDialogListener {
 
     private Button buttonAddPerson;
     private ListView listViewPeople;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements AddPersonDialog.A
         buttonAddPerson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialogAddPerson();
+                openAddPersonDialog();
             }
         });
     }
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements AddPersonDialog.A
         startActivity(intent);
     }
 
-    private void openDialogAddPerson() {
+    private void openAddPersonDialog() {
         AddPersonDialog addPersonDialog = new AddPersonDialog();
         addPersonDialog.show(getSupportFragmentManager(), "Adding Person");
     }
