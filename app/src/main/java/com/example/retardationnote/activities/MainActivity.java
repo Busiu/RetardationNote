@@ -37,8 +37,7 @@ public class MainActivity extends AppCompatActivity implements AddPersonDialog.A
         listViewPeople.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, PersonActivity.class);
-                startActivity(intent);
+                openPersonActivity();
             }
         });
 
@@ -54,6 +53,11 @@ public class MainActivity extends AppCompatActivity implements AddPersonDialog.A
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    private void openPersonActivity() {
+        Intent intent = new Intent(MainActivity.this, PersonActivity.class);
+        startActivity(intent);
     }
 
     private void openDialogAddPerson() {
