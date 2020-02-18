@@ -1,8 +1,9 @@
 package com.example.retardationnote.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Person {
+public class Person implements Serializable {
 
     private String nickname;
     private ArrayList<Event> events;
@@ -12,18 +13,18 @@ public class Person {
         this.events = new ArrayList<>();
     }
 
-    public void addEvent(String name, int score) {
-        //events.add(new Event(name, score));
-    }
-
     public String getNickname() {
         return nickname;
+    }
+
+    public ArrayList<Event> getEvents() {
+        return events;
     }
 
     public String getPointsToString() {
         int points = 0;
         for(Event event : events) {
-            //points += event.getPoints();
+            points += event.getPoints();
         }
         return Integer.toString(points);
     }

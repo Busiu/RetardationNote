@@ -1,8 +1,9 @@
 package com.example.retardationnote.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Event {
+public class Event implements Serializable {
 
     private Calendar actualDate;
     private Calendar plannedDate;
@@ -15,6 +16,10 @@ public class Event {
 
         this.rank = null;
         this.actualDate = null;
+    }
+
+    public int getPoints() {
+        return rank.getPoints();
     }
 
     public String getPlannedDateToString() {

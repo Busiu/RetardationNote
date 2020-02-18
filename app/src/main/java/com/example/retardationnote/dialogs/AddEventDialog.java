@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import com.example.retardationnote.R;
 import com.example.retardationnote.model.Event;
 
-import java.time.LocalDateTime;
 import java.util.Calendar;
 
 public class AddEventDialog extends AppCompatDialogFragment implements

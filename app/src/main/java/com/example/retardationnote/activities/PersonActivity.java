@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +13,8 @@ import com.example.retardationnote.R;
 import com.example.retardationnote.adapters.EventAdapter;
 import com.example.retardationnote.dialogs.AddEventDialog;
 import com.example.retardationnote.model.Event;
+import com.example.retardationnote.model.Person;
+import com.example.retardationnote.utils.PickedObjects;
 
 import java.util.ArrayList;
 
@@ -22,12 +25,17 @@ public class PersonActivity extends AppCompatActivity implements
     private ListView listViewEvents;
     private EventAdapter eventAdapter;
 
+    private Person owner;
     private ArrayList<Event> events = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person);
+        owner = PickedObjects.currentlyPickedPerson;
+        events = owner.getEvents();
+
+        Toast.makeText(this, owner.getNickname(), Toast.LENGTH_SHORT).show();
 
         listViewEvents = findViewById(R.id.list_view_events);
         eventAdapter = new EventAdapter(this, R.layout.list_view_people, events);
@@ -46,6 +54,12 @@ public class PersonActivity extends AppCompatActivity implements
                 openAddEventDialog();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PickedObjects.currentlyPickedPerson = null;
     }
 
     private void openAddEventDialog() {

@@ -14,6 +14,7 @@ import com.example.retardationnote.adapters.PeopleAdapter;
 import com.example.retardationnote.dialogs.AddPersonDialog;
 import com.example.retardationnote.model.Person;
 import com.example.retardationnote.utils.NoDuplicateArrayList;
+import com.example.retardationnote.utils.PickedObjects;
 
 public class MainActivity extends AppCompatActivity implements
         AddPersonDialog.AddPersonDialogListener {
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements
         listViewPeople.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                openPersonActivity();
+                openPersonActivity(position);
             }
         });
 
@@ -56,8 +57,9 @@ public class MainActivity extends AppCompatActivity implements
         super.onDestroy();
     }
 
-    private void openPersonActivity() {
+    private void openPersonActivity(int position) {
         Intent intent = new Intent(MainActivity.this, PersonActivity.class);
+        PickedObjects.currentlyPickedPerson = people.get(position);
         startActivity(intent);
     }
 

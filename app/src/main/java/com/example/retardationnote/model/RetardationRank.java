@@ -28,6 +28,10 @@ public enum RetardationRank {
         return name;
     }
 
+    public int getPoints() {
+        return points;
+    }
+
     public String getPointsToString() {
         if (points > 0) {
             return "+" + points;
