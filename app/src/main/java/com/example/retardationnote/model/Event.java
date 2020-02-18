@@ -46,4 +46,8 @@ public class Event implements Serializable {
         long b = plannedDate.getTimeInMillis() / (1000 * 60);
         return Long.toString(a - b);
     }
+
+    public void setDescribtion(String describtion) {
+        this.describtion = describtion;
+    }
 }

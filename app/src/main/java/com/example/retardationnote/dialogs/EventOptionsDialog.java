@@ -29,7 +29,8 @@ public class EventOptionsDialog extends AppCompatDialogFragment {
         buttonChangeDescribtion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                ChangeEventDescriptionDialog dialog = new ChangeEventDescriptionDialog();
+                dialog.show(getFragmentManager(), "Changing Event Describtion");
             }
         });
 
@@ -51,7 +52,7 @@ public class EventOptionsDialog extends AppCompatDialogFragment {
 
         builder.setView(view)
                 .setTitle("Event Options")
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton("exit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

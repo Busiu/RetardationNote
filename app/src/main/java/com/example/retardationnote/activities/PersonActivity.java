@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.retardationnote.R;
 import com.example.retardationnote.adapters.EventAdapter;
 import com.example.retardationnote.dialogs.AddEventDialog;
+import com.example.retardationnote.dialogs.ChangeEventDescriptionDialog;
 import com.example.retardationnote.dialogs.EventOptionsDialog;
 import com.example.retardationnote.model.Event;
 import com.example.retardationnote.model.Person;
@@ -19,10 +20,9 @@ import com.example.retardationnote.utils.PickedObjects;
 
 import java.util.ArrayList;
 
-import javax.xml.datatype.Duration;
-
 public class PersonActivity extends AppCompatActivity implements
-        AddEventDialog.AddEventDialogListener {
+        AddEventDialog.AddEventDialogListener,
+        ChangeEventDescriptionDialog.ChangeEventDescriptionDialogListener {
 
     private Button buttonAddEvent;
     private ListView listViewEvents;
@@ -79,5 +79,12 @@ public class PersonActivity extends AppCompatActivity implements
     @Override
     public void addEvent(Event event) {
         eventAdapter.addEvent(event);
+        Toast.makeText(this, "Event added successfully!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void changeEventDescribtion() {
+        eventAdapter.notifyDataSetChanged();
+        Toast.makeText(this, "Describtion changed successfully!", Toast.LENGTH_SHORT).show();
     }
 }

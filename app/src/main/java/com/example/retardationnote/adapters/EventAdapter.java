@@ -66,6 +66,5 @@ public class EventAdapter extends ArrayAdapter<Event> {
     public void addEvent(Event event) {
         events.add(event);
         notifyDataSetChanged();
-        Toast.makeText(getContext(), "Event added successfully!", Toast.LENGTH_SHORT).show();
     }
 }
