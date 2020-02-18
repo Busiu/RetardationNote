@@ -12,11 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.retardationnote.R;
 import com.example.retardationnote.adapters.EventAdapter;
 import com.example.retardationnote.dialogs.AddEventDialog;
+import com.example.retardationnote.dialogs.EventOptionsDialog;
 import com.example.retardationnote.model.Event;
 import com.example.retardationnote.model.Person;
 import com.example.retardationnote.utils.PickedObjects;
 
 import java.util.ArrayList;
+
+import javax.xml.datatype.Duration;
 
 public class PersonActivity extends AppCompatActivity implements
         AddEventDialog.AddEventDialogListener {
@@ -43,7 +46,7 @@ public class PersonActivity extends AppCompatActivity implements
         listViewEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                openEventOptionsDialog(position);
             }
         });
 
@@ -65,6 +68,12 @@ public class PersonActivity extends AppCompatActivity implements
     private void openAddEventDialog() {
         AddEventDialog addEventDialog = new AddEventDialog();
         addEventDialog.show(getSupportFragmentManager(), "Adding Event");
+    }
+
+    private void openEventOptionsDialog(int position) {
+        PickedObjects.currenlyPickedEvent = events.get(position);
+        EventOptionsDialog eventOptionsDialog = new EventOptionsDialog();
+        eventOptionsDialog.show(getSupportFragmentManager(), "Event Options");
     }
 
     @Override

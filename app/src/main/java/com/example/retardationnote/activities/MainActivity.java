@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void openPersonActivity(int position) {
-        Intent intent = new Intent(MainActivity.this, PersonActivity.class);
         PickedObjects.currentlyPickedPerson = people.get(position);
+        Intent intent = new Intent(MainActivity.this, PersonActivity.class);
         startActivity(intent);
     }
 
