@@ -18,7 +18,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.retardationnote.R;
+import com.example.retardationnote.model.Event;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 public class AddEventDialog extends AppCompatDialogFragment implements
@@ -69,10 +71,9 @@ public class AddEventDialog extends AppCompatDialogFragment implements
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String description = editTextAddDescribtion.getText().toString();
-                        String date = textViewChosenDate.getText().toString();
-
-                        addEventDialogListener.addDescribtion(description);
-                        addEventDialogListener.addDate(date);
+                        Calendar date = Calendar.getInstance();
+                        date.set(setYear, setMonth, setDay, setHour, setMinute);
+                        addEventDialogListener.addEvent(new Event(description, date));
                     }
                 });
 
@@ -154,7 +155,6 @@ public class AddEventDialog extends AppCompatDialogFragment implements
     }
 
     public interface AddEventDialogListener {
-        void addDate(String date);
-        void addDescribtion(String nickname);
+        void addEvent(Event event);
     }
 }

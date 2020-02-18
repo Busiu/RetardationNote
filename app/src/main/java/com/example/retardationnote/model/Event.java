@@ -1,33 +1,21 @@
 package com.example.retardationnote.model;
 
-import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class Event {
 
-    //private final static String separator = ";";
-
-    private Date date;
+    private Calendar actualDate;
+    private Calendar plannedDate;
     private int points;
-    private String name;
+    private RetardationRank rank;
+    private String describtion;
 
-    public Event(String name, int points) {
-        this.date = Calendar.getInstance().getTime();
-        this.points = points;
-        this.name = name;
-    }
+    public Event(String describtion, Calendar plannedDate) {
+        this.describtion = describtion;
+        this.plannedDate = plannedDate;
 
-    public String getDate() {
-        DateFormat dateFormat = DateFormat.getDateTimeInstance();
-        return dateFormat.format(date);
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public String getName() {
-        return name;
+        this.rank = null;
+        this.points = 0;
+        this.actualDate = null;
     }
 }

@@ -13,22 +13,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.retardationnote.R;
+import com.example.retardationnote.model.Event;
 import com.example.retardationnote.model.Person;
-import com.example.retardationnote.utils.NoDuplicateArrayList;
 
-public class PeopleAdapter extends ArrayAdapter<Person> {
+import java.util.ArrayList;
 
-    private NoDuplicateArrayList<Person> people;
+public class EventAdapter extends ArrayAdapter<Event> {
 
-    public PeopleAdapter(Context context, int layoutResourceId, NoDuplicateArrayList<Person> people) {
-        super(context, layoutResourceId, people.getArrayList());
-        this.people = people;
+    private ArrayList<Event> events;
+
+    public EventAdapter(Context context, int layoutResourceId, ArrayList<Event> events) {
+        super(context, layoutResourceId, events);
+        this.events = events;
     }
 
     private class ViewHolder {
         private Button buttonRemove;
-        private TextView textViewNickname;
-        private TextView textViewPoints;
+        private TextView textViewRank;
+        private TextView textViewDescribtion;
+        private TextView textViewDate;
+        private TextView textViewRetardation;
     }
 
     @NonNull
@@ -41,15 +45,17 @@ public class PeopleAdapter extends ArrayAdapter<Person> {
             convertView = layoutInflater.inflate(R.layout.list_view_people, parent, false);
 
             viewHolder.buttonRemove = convertView.findViewById(R.id.button_remove);
-            viewHolder.textViewNickname = convertView.findViewById(R.id.text_view_nickname);
-            viewHolder.textViewPoints = convertView.findViewById(R.id.text_view_points);
+            viewHolder.textViewRank = convertView.findViewById(R.id.text_view_rank);
+            viewHolder.textViewDescribtion = convertView.findViewById(R.id.text_view_description);
+            viewHolder.textViewDate = convertView.findViewById(R.id.text_view_date);
+            viewHolder.textViewRetardation = convertView.findViewById(R.id.text_view_retardation);
             convertView.setTag(viewHolder);
         }
         else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        Person person = people.get(position);
+        Event event = events.get(position);
         viewHolder.textViewNickname.setText(person.getNickname());
         viewHolder.textViewPoints.setText(person.getPointsToString());
 

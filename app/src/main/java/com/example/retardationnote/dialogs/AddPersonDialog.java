@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.retardationnote.R;
+import com.example.retardationnote.model.Person;
 
 public class AddPersonDialog extends AppCompatDialogFragment {
 
@@ -38,7 +39,7 @@ public class AddPersonDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String nickname = editTextAddPerson.getText().toString();
-                        addPersonDialogListener.addPerson(nickname);
+                        addPersonDialogListener.addPerson(new Person(nickname));
                     }
                 });
 
@@ -58,6 +59,6 @@ public class AddPersonDialog extends AppCompatDialogFragment {
     }
 
     public interface AddPersonDialogListener {
-        void addPerson(String nickname);
+        void addPerson(Person person);
     }
 }

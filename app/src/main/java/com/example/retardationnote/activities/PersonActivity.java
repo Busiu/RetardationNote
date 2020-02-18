@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.retardationnote.R;
 import com.example.retardationnote.dialogs.AddEventDialog;
+import com.example.retardationnote.model.Event;
 
 public class PersonActivity extends AppCompatActivity implements
         AddEventDialog.AddEventDialogListener {
@@ -34,12 +35,7 @@ public class PersonActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void addDate(String date) {
-
-    }
-
-    @Override
-    public void addDescribtion(String nickname) {
+    public void addEvent(Event event) {
 
     }
 }

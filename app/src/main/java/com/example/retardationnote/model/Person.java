@@ -13,7 +13,7 @@ public class Person {
     }
 
     public void addEvent(String name, int score) {
-        events.add(new Event(name, score));
+        //events.add(new Event(name, score));
     }
 
     public String getNickname() {
@@ -23,7 +23,7 @@ public class Person {
     public String getPointsToString() {
         int points = 0;
         for(Event event : events) {
-            points += event.getPoints();
+            //points += event.getPoints();
         }
         return Integer.toString(points);
     }

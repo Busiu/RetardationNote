@@ -1,2 +1,2 @@
 # RetardationNote
-Android app created to note redemptions of your friends! (Yet in development)
+Android app created to note retardations of your friends! (Yet in development)

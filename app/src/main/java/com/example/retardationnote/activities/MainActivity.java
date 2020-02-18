@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void addPerson(String nickname) {
-        peopleAdaper.addPerson(nickname);
+    public void addPerson(Person person) {
+        peopleAdaper.addPerson(person);
     }
 }
