@@ -2,23 +2,42 @@ package com.example.retardationnote.activities;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.retardationnote.R;
+import com.example.retardationnote.adapters.EventAdapter;
 import com.example.retardationnote.dialogs.AddEventDialog;
 import com.example.retardationnote.model.Event;
+
+import java.util.ArrayList;
 
 public class PersonActivity extends AppCompatActivity implements
         AddEventDialog.AddEventDialogListener {
 
     private Button buttonAddEvent;
+    private ListView listViewEvents;
+    private EventAdapter eventAdapter;
+
+    private ArrayList<Event> events = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person);
+
+        listViewEvents = findViewById(R.id.list_view_events);
+        eventAdapter = new EventAdapter(this, R.layout.list_view_people, events);
+        listViewEvents.setAdapter(eventAdapter);
+        listViewEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
 
         buttonAddEvent = findViewById(R.id.button_add_event);
         buttonAddEvent.setOnClickListener(new View.OnClickListener() {
@@ -36,6 +55,6 @@ public class PersonActivity extends AppCompatActivity implements
 
     @Override
     public void addEvent(Event event) {
-
+        eventAdapter.addEvent(event);
     }
 }

@@ -6,7 +6,6 @@ public class Event {
 
     private Calendar actualDate;
     private Calendar plannedDate;
-    private int points;
     private RetardationRank rank;
     private String describtion;
 
@@ -15,7 +14,31 @@ public class Event {
         this.plannedDate = plannedDate;
 
         this.rank = null;
-        this.points = 0;
         this.actualDate = null;
+    }
+
+    public String getPlannedDateToString() {
+        return plannedDate.getTime().toString();
+    }
+
+    public String getRankToString() {
+        if (rank == null) {
+            return "event not ended";
+        }
+        return rank.toString();
+    }
+
+    public String getDescribtion() {
+        return describtion;
+    }
+
+    public String getRetardationToString() {
+        if (actualDate == null) {
+            return "event not ended";
+        }
+
+        long a = actualDate.getTimeInMillis() / (1000 * 60);
+        long b = plannedDate.getTimeInMillis() / (1000 * 60);
+        return Long.toString(a - b);
     }
 }

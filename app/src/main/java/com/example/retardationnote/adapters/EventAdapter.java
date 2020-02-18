@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 
 import com.example.retardationnote.R;
 import com.example.retardationnote.model.Event;
-import com.example.retardationnote.model.Person;
 
 import java.util.ArrayList;
 
@@ -42,7 +41,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
 
         if(convertView == null) {
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-            convertView = layoutInflater.inflate(R.layout.list_view_people, parent, false);
+            convertView = layoutInflater.inflate(R.layout.list_view_events, parent, false);
 
             viewHolder.buttonRemove = convertView.findViewById(R.id.button_remove);
             viewHolder.textViewRank = convertView.findViewById(R.id.text_view_rank);
@@ -56,20 +55,17 @@ public class EventAdapter extends ArrayAdapter<Event> {
         }
 
         Event event = events.get(position);
-        viewHolder.textViewNickname.setText(person.getNickname());
-        viewHolder.textViewPoints.setText(person.getPointsToString());
+        viewHolder.textViewRank.setText(event.getRankToString());
+        viewHolder.textViewDescribtion.setText(event.getDescribtion());
+        viewHolder.textViewDate.setText(event.getPlannedDateToString());
+        viewHolder.textViewRetardation.setText(event.getRetardationToString());
 
         return convertView;
     }
 
-    public void addPerson(Person person) {
-        boolean result = people.add(person);
-        if (result) {
-            notifyDataSetChanged();
-            Toast.makeText(getContext(), "Person added successfully!", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Toast.makeText(getContext(), "Such a person already exists!", Toast.LENGTH_SHORT).show();
-        }
+    public void addEvent(Event event) {
+        events.add(event);
+        notifyDataSetChanged();
+        Toast.makeText(getContext(), "Event added successfully!", Toast.LENGTH_SHORT).show();
     }
 }
