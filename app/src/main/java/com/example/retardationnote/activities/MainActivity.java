@@ -12,16 +12,21 @@ import android.widget.ListView;
 import com.example.retardationnote.R;
 import com.example.retardationnote.adapters.PeopleAdapter;
 import com.example.retardationnote.dialogs.AddPersonDialog;
+import com.example.retardationnote.dialogs.PersonOptionsDialog;
 import com.example.retardationnote.model.Person;
 import com.example.retardationnote.utils.NoDuplicateArrayList;
 import com.example.retardationnote.utils.ChosenObjects;
 
 public class MainActivity extends AppCompatActivity implements
-        AddPersonDialog.AddPersonDialogListener {
+        AddPersonDialog.AddPersonDialogListener,
+        PersonOptionsDialog.PersonOptionsDialogListener {
 
     private Button buttonAddPerson;
     private ListView listViewPeople;
     private PeopleAdapter peopleAdaper;
+
+    private AddPersonDialog addPersonDialog;
+    private PersonOptionsDialog personOptionsDialog;
 
     private NoDuplicateArrayList<Person> people = new NoDuplicateArrayList<>();
 
@@ -39,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements
         listViewPeople.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                openPersonActivity(position);
+                openPersonOptionsDialog(position);
             }
         });
 
@@ -57,6 +62,12 @@ public class MainActivity extends AppCompatActivity implements
         super.onDestroy();
     }
 
+    private void openPersonOptionsDialog(int position) {
+        ChosenObjects.currentlyChosenPerson = people.get(position);
+        personOptionsDialog = new PersonOptionsDialog(this);
+        personOptionsDialog.show(getSupportFragmentManager(), "Person Options");
+    }
+
     private void openPersonActivity(int position) {
         ChosenObjects.currentlyChosenPerson = people.get(position);
         Intent intent = new Intent(MainActivity.this, PersonActivity.class);
@@ -64,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void openAddPersonDialog() {
-        AddPersonDialog addPersonDialog = new AddPersonDialog(this);
+        addPersonDialog = new AddPersonDialog(this);
         addPersonDialog.show(getSupportFragmentManager(), "Adding Person");
     }
 

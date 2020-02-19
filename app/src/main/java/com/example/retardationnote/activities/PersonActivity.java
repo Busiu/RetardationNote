@@ -29,8 +29,8 @@ public class PersonActivity extends AppCompatActivity implements
     private ListView listViewEvents;
     private EventAdapter eventAdapter;
 
-    AddEventDialog addEventDialog;
-    EventOptionsDialog eventOptionsDialog;
+    private AddEventDialog addEventDialog;
+    private EventOptionsDialog eventOptionsDialog;
 
     private Person owner;
     private ArrayList<Event> events = new ArrayList<>();

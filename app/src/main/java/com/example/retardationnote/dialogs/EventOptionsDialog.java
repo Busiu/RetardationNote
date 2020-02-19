@@ -27,9 +27,9 @@ public class EventOptionsDialog extends AppCompatDialogFragment implements
 
     private EventOptionsDialogListener listener;
 
-    ChangeEventDescriptionDialog changeEventDescriptionDialog;
-    DateTimePickerDialog dateTimePickerDialog;
-    SimpleDeleteDialog simpleDeleteDialog;
+    private ChangeEventDescriptionDialog changeEventDescriptionDialog;
+    private DateTimePickerDialog dateTimePickerDialog;
+    private SimpleDeleteDialog simpleDeleteDialog;
 
     private Event chosenEvent;
 
@@ -69,13 +69,7 @@ public class EventOptionsDialog extends AppCompatDialogFragment implements
         });
 
         builder.setView(view)
-                .setTitle("Event Options")
-                .setNegativeButton("exit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
+                .setTitle("Event Options");
 
         return builder.create();
     }
