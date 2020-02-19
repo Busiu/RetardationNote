@@ -68,12 +68,6 @@ public class MainActivity extends AppCompatActivity implements
         personOptionsDialog.show(getSupportFragmentManager(), "Person Options");
     }
 
-    private void openPersonActivity(int position) {
-        ChosenObjects.currentlyChosenPerson = people.get(position);
-        Intent intent = new Intent(MainActivity.this, PersonActivity.class);
-        startActivity(intent);
-    }
-
     private void openAddPersonDialog() {
         addPersonDialog = new AddPersonDialog(this);
         addPersonDialog.show(getSupportFragmentManager(), "Adding Person");
