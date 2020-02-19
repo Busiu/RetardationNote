@@ -22,7 +22,8 @@ import java.util.ArrayList;
 
 public class PersonActivity extends AppCompatActivity implements
         AddEventDialog.AddEventDialogListener,
-        ChangeEventDescriptionDialog.ChangeEventDescriptionDialogListener {
+        ChangeEventDescriptionDialog.ChangeEventDescriptionDialogListener,
+        EventOptionsDialog.EventOptionsDialogListener {
 
     private Button buttonAddEvent;
     private ListView listViewEvents;
@@ -72,7 +73,7 @@ public class PersonActivity extends AppCompatActivity implements
 
     private void openEventOptionsDialog(int position) {
         PickedObjects.currenlyPickedEvent = events.get(position);
-        EventOptionsDialog eventOptionsDialog = new EventOptionsDialog();
+        EventOptionsDialog eventOptionsDialog = new EventOptionsDialog(this);
         eventOptionsDialog.show(getSupportFragmentManager(), "Event Options");
     }
 
@@ -86,5 +87,11 @@ public class PersonActivity extends AppCompatActivity implements
     public void changeEventDescribtion() {
         eventAdapter.notifyDataSetChanged();
         Toast.makeText(this, "Describtion changed successfully!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setActualDate() {
+        eventAdapter.notifyDataSetChanged();
+        Toast.makeText(this, "Actual date set successfully!", Toast.LENGTH_SHORT).show();
     }
 }

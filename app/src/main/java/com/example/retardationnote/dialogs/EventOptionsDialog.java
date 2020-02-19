@@ -11,26 +11,38 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.retardationnote.R;
+import com.example.retardationnote.model.Event;
 import com.example.retardationnote.utils.PickedObjects;
 
-public class EventOptionsDialog extends AppCompatDialogFragment {
+import java.util.Calendar;
+
+public class EventOptionsDialog extends AppCompatDialogFragment implements
+        DateTimePickerDialog.DateTimePickerDialogListener {
 
     private Button buttonChangeDescribtion;
     private Button buttonSetActualDate;
     private Button buttonDelete;
+
+    private Event chosenEvent;
+
+    private EventOptionsDialogListener listener;
+
+    public EventOptionsDialog(EventOptionsDialogListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_event_options, null);
+        chosenEvent = PickedObjects.currenlyPickedEvent;
 
         buttonChangeDescribtion = view.findViewById(R.id.button_change_description);
         buttonChangeDescribtion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChangeEventDescriptionDialog dialog = new ChangeEventDescriptionDialog();
-                dialog.show(getFragmentManager(), "Changing Event Describtion");
+                openChangeDescribtion();
             }
         });
 
@@ -38,7 +50,7 @@ public class EventOptionsDialog extends AppCompatDialogFragment {
         buttonSetActualDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                openSetActualDate();
             }
         });
 
@@ -66,5 +78,27 @@ public class EventOptionsDialog extends AppCompatDialogFragment {
     public void onDestroy() {
         super.onDestroy();
         PickedObjects.currenlyPickedEvent = null;
+    }
+
+    private void openChangeDescribtion() {
+        ChangeEventDescriptionDialog dialog = new ChangeEventDescriptionDialog();
+        dialog.show(getFragmentManager(), "Changing Event Describtion");
+    }
+
+    private void openSetActualDate() {
+        DateTimePickerDialog dialog = new DateTimePickerDialog(this);
+        dialog.show(getChildFragmentManager(), "Setting actual date");
+    }
+
+    @Override
+    public void setDateTime(int year, int month, int day, int hour, int minute) {
+        Calendar actualDate = Calendar.getInstance();
+        actualDate.set(year, month, day, hour, minute);
+        chosenEvent.setActualDate(actualDate);
+        listener.setActualDate();
+    }
+
+    public interface EventOptionsDialogListener {
+        void setActualDate();
     }
 }

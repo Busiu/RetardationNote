@@ -47,6 +47,10 @@ public class Event implements Serializable {
         return Long.toString(a - b);
     }
 
+    public void setActualDate(Calendar actualDate) {
+        this.actualDate = actualDate;
+    }
+
     public void setDescribtion(String describtion) {
         this.describtion = describtion;
     }

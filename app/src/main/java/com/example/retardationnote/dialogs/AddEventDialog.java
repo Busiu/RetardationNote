@@ -1,18 +1,14 @@
 package com.example.retardationnote.dialogs;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
@@ -23,23 +19,21 @@ import com.example.retardationnote.model.Event;
 import java.util.Calendar;
 
 public class AddEventDialog extends AppCompatDialogFragment implements
-        DatePickerDialog.OnDateSetListener,
-        TimePickerDialog.OnTimeSetListener {
+        DateTimePickerDialog.DateTimePickerDialogListener {
 
     private Button buttonChooseDate;
     private EditText editTextAddDescribtion;
     private TextView textViewChosenDate;
 
-    private DatePickerDialog datePickerDialog;
-    private TimePickerDialog timePickerDialog;
+    private DateTimePickerDialog dateTimePickerDialog;
 
     private AddEventDialogListener addEventDialogListener;
 
-    private int currentYear, setYear;
-    private int currentMonth, setMonth;
-    private int currentDay, setDay;
-    private int currentHour, setHour;
-    private int currentMinute, setMinute;
+    private int setYear;
+    private int setMonth;
+    private int setDay;
+    private int setHour;
+    private int setMinute;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -54,7 +48,7 @@ public class AddEventDialog extends AppCompatDialogFragment implements
         buttonChooseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDatePickerDialog();
+                openDateTimePickerDialog();
             }
         });
 
@@ -90,51 +84,9 @@ public class AddEventDialog extends AppCompatDialogFragment implements
         }
     }
 
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int day) {
-        setYear = year;
-        setMonth = month;
-        setDay = day;
-
-        openTimePickerDialog();
-    }
-
-    @Override
-    public void onTimeSet(TimePicker view, int hour, int minute) {
-        setHour = hour;
-        setMinute = minute;
-
-        textViewChosenDate.setText(getSetDate());
-    }
-
-    private void openDatePickerDialog() {
-        Calendar calendar = Calendar.getInstance();
-
-        currentYear = calendar.get(Calendar.YEAR);
-        currentMonth = calendar.get(Calendar.MONTH);
-        currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-
-        datePickerDialog = new DatePickerDialog(getContext(), AddEventDialog.this,
-                currentYear, currentMonth, currentDay);
-        datePickerDialog.show();
-    }
-
-    private void openTimePickerDialog() {
-        Calendar calendar = Calendar.getInstance();
-        currentHour = calendar.get(Calendar.HOUR);
-        currentMinute = calendar.get(Calendar.MINUTE);
-
-        timePickerDialog = new TimePickerDialog(getContext(), AddEventDialog.this,
-                currentHour, currentMinute, true);
-        timePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "undo", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (which == DialogInterface.BUTTON_NEGATIVE) {
-                    openDatePickerDialog();
-                }
-            }
-        });
-        timePickerDialog.show();
+    private void openDateTimePickerDialog() {
+        dateTimePickerDialog = new DateTimePickerDialog(this);
+        dateTimePickerDialog.show(getChildFragmentManager(), "Getting Date and Time");
     }
 
     private String getSetDate() {
@@ -151,6 +103,16 @@ public class AddEventDialog extends AppCompatDialogFragment implements
         stringBuilder.append(setMinute);
 
         return stringBuilder.toString();
+    }
+
+    @Override
+    public void setDateTime(int year, int month, int day, int hour, int minute) {
+        setYear = year;
+        setMonth = month;
+        setDay = day;
+        setHour = hour;
+        setMinute = minute;
+        textViewChosenDate.setText(getSetDate());
     }
 
     public interface AddEventDialogListener {
