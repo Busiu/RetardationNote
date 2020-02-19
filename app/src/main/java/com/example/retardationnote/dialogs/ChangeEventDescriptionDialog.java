@@ -13,23 +13,23 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.retardationnote.R;
 import com.example.retardationnote.model.Event;
-import com.example.retardationnote.utils.PickedObjects;
+import com.example.retardationnote.utils.ChosenObjects;
 
 public class ChangeEventDescriptionDialog extends AppCompatDialogFragment {
 
     private EditText editTextChangeDescribtion;
-    private Event event;
     private ChangeEventDescriptionDialogListener listener;
+    private Event chosenEvent;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_change_event_description, null);
-        event = PickedObjects.currenlyPickedEvent;
+        chosenEvent = ChosenObjects.currentlyChosenEvent;
 
         editTextChangeDescribtion = view.findViewById(R.id.edit_text_change_describtion);
-        editTextChangeDescribtion.setText(event.getDescribtion());
+        editTextChangeDescribtion.setText(chosenEvent.getDescribtion());
 
         builder.setView(view)
                 .setTitle("Change Describtion")
@@ -43,7 +43,7 @@ public class ChangeEventDescriptionDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String describtion = editTextChangeDescribtion.getText().toString();
-                        event.setDescribtion(describtion);
+                        chosenEvent.setDescribtion(describtion);
                         listener.changeEventDescribtion();
                     }
                 });

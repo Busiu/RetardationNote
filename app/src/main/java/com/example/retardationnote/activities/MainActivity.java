@@ -14,7 +14,7 @@ import com.example.retardationnote.adapters.PeopleAdapter;
 import com.example.retardationnote.dialogs.AddPersonDialog;
 import com.example.retardationnote.model.Person;
 import com.example.retardationnote.utils.NoDuplicateArrayList;
-import com.example.retardationnote.utils.PickedObjects;
+import com.example.retardationnote.utils.ChosenObjects;
 
 public class MainActivity extends AppCompatActivity implements
         AddPersonDialog.AddPersonDialogListener {
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void openPersonActivity(int position) {
-        PickedObjects.currentlyPickedPerson = people.get(position);
+        ChosenObjects.currentlyChosenPerson = people.get(position);
         Intent intent = new Intent(MainActivity.this, PersonActivity.class);
         startActivity(intent);
     }

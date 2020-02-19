@@ -12,20 +12,25 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.retardationnote.R;
 import com.example.retardationnote.model.Event;
-import com.example.retardationnote.utils.PickedObjects;
+import com.example.retardationnote.utils.ChosenObjects;
 
 import java.util.Calendar;
 
 public class EventOptionsDialog extends AppCompatDialogFragment implements
-        DateTimePickerDialog.DateTimePickerDialogListener {
+        DateTimePickerDialog.DateTimePickerDialogListener,
+        SimpleDeleteDialog.SimpleDeleteDialogListener {
 
     private Button buttonChangeDescribtion;
     private Button buttonSetActualDate;
     private Button buttonDelete;
 
-    private Event chosenEvent;
-
     private EventOptionsDialogListener listener;
+
+    ChangeEventDescriptionDialog changeEventDescriptionDialog;
+    DateTimePickerDialog dateTimePickerDialog;
+    SimpleDeleteDialog simpleDeleteDialog;
+
+    private Event chosenEvent;
 
     public EventOptionsDialog(EventOptionsDialogListener listener) {
         this.listener = listener;
@@ -36,13 +41,13 @@ public class EventOptionsDialog extends AppCompatDialogFragment implements
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_event_options, null);
-        chosenEvent = PickedObjects.currenlyPickedEvent;
+        chosenEvent = ChosenObjects.currentlyChosenEvent;
 
         buttonChangeDescribtion = view.findViewById(R.id.button_change_description);
         buttonChangeDescribtion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openChangeDescribtion();
+                openChangeEventDescribtionDialog();
             }
         });
 
@@ -50,7 +55,7 @@ public class EventOptionsDialog extends AppCompatDialogFragment implements
         buttonSetActualDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openSetActualDate();
+                openSetActualDateDialog();
             }
         });
 
@@ -58,7 +63,7 @@ public class EventOptionsDialog extends AppCompatDialogFragment implements
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                openDeleteEventDialog();
             }
         });
 
@@ -77,17 +82,27 @@ public class EventOptionsDialog extends AppCompatDialogFragment implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-        PickedObjects.currenlyPickedEvent = null;
+        ChosenObjects.currentlyChosenEvent = null;
     }
 
-    private void openChangeDescribtion() {
-        ChangeEventDescriptionDialog dialog = new ChangeEventDescriptionDialog();
-        dialog.show(getFragmentManager(), "Changing Event Describtion");
+    private void openChangeEventDescribtionDialog() {
+        changeEventDescriptionDialog = new ChangeEventDescriptionDialog();
+        changeEventDescriptionDialog.show(getChildFragmentManager(), "Changing Event Describtion");
     }
 
-    private void openSetActualDate() {
-        DateTimePickerDialog dialog = new DateTimePickerDialog(this);
-        dialog.show(getChildFragmentManager(), "Setting actual date");
+    private void openDeleteEventDialog() {
+        simpleDeleteDialog = new SimpleDeleteDialog(this);
+        simpleDeleteDialog.show(getChildFragmentManager(), "Deleting Event");
+    }
+
+    private void openSetActualDateDialog() {
+        dateTimePickerDialog = new DateTimePickerDialog(this);
+        dateTimePickerDialog.show(getChildFragmentManager(), "Setting actual date");
+    }
+
+    @Override
+    public void delete(Event event) {
+        listener.deleteCurrentEvent(event);
     }
 
     @Override
@@ -99,6 +114,7 @@ public class EventOptionsDialog extends AppCompatDialogFragment implements
     }
 
     public interface EventOptionsDialogListener {
+        void deleteCurrentEvent(Event event);
         void setActualDate();
     }
 }

@@ -16,7 +16,7 @@ import com.example.retardationnote.dialogs.ChangeEventDescriptionDialog;
 import com.example.retardationnote.dialogs.EventOptionsDialog;
 import com.example.retardationnote.model.Event;
 import com.example.retardationnote.model.Person;
-import com.example.retardationnote.utils.PickedObjects;
+import com.example.retardationnote.utils.ChosenObjects;
 
 import java.util.ArrayList;
 
@@ -29,6 +29,9 @@ public class PersonActivity extends AppCompatActivity implements
     private ListView listViewEvents;
     private EventAdapter eventAdapter;
 
+    AddEventDialog addEventDialog;
+    EventOptionsDialog eventOptionsDialog;
+
     private Person owner;
     private ArrayList<Event> events = new ArrayList<>();
 
@@ -36,7 +39,7 @@ public class PersonActivity extends AppCompatActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person);
-        owner = PickedObjects.currentlyPickedPerson;
+        owner = ChosenObjects.currentlyChosenPerson;
         events = owner.getEvents();
 
         Toast.makeText(this, owner.getNickname(), Toast.LENGTH_SHORT).show();
@@ -63,17 +66,17 @@ public class PersonActivity extends AppCompatActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        PickedObjects.currentlyPickedPerson = null;
+        ChosenObjects.currentlyChosenPerson = null;
     }
 
     private void openAddEventDialog() {
-        AddEventDialog addEventDialog = new AddEventDialog();
+        addEventDialog = new AddEventDialog();
         addEventDialog.show(getSupportFragmentManager(), "Adding Event");
     }
 
     private void openEventOptionsDialog(int position) {
-        PickedObjects.currenlyPickedEvent = events.get(position);
-        EventOptionsDialog eventOptionsDialog = new EventOptionsDialog(this);
+        ChosenObjects.currentlyChosenEvent = events.get(position);
+        eventOptionsDialog = new EventOptionsDialog(this);
         eventOptionsDialog.show(getSupportFragmentManager(), "Event Options");
     }
 
@@ -87,6 +90,13 @@ public class PersonActivity extends AppCompatActivity implements
     public void changeEventDescribtion() {
         eventAdapter.notifyDataSetChanged();
         Toast.makeText(this, "Describtion changed successfully!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void deleteCurrentEvent(Event event) {
+        eventAdapter.deleteEvent(event);
+        eventOptionsDialog.dismiss();
+        Toast.makeText(this, "Event deleted successfully!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

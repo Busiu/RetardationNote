@@ -3,8 +3,8 @@ package com.example.retardationnote.utils;
 import com.example.retardationnote.model.Event;
 import com.example.retardationnote.model.Person;
 
-public class PickedObjects {
+public class ChosenObjects {
 
-    public static Person currentlyPickedPerson = null;
-    public static Event currenlyPickedEvent = null;
+    public static Person currentlyChosenPerson = null;
+    public static Event currentlyChosenEvent = null;
 }

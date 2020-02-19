@@ -67,4 +67,9 @@ public class EventAdapter extends ArrayAdapter<Event> {
         events.add(event);
         notifyDataSetChanged();
     }
+
+    public void deleteEvent(Event event) {
+        events.remove(event);
+        notifyDataSetChanged();
+    }
 }
