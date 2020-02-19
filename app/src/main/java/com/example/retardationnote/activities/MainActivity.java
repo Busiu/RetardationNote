@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void openAddPersonDialog() {
-        AddPersonDialog addPersonDialog = new AddPersonDialog();
+        AddPersonDialog addPersonDialog = new AddPersonDialog(this);
         addPersonDialog.show(getSupportFragmentManager(), "Adding Person");
     }
 

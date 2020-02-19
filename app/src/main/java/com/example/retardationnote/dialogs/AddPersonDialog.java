@@ -1,7 +1,6 @@
 package com.example.retardationnote.dialogs;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,7 +16,11 @@ import com.example.retardationnote.model.Person;
 public class AddPersonDialog extends AppCompatDialogFragment {
 
     private EditText editTextAddPerson;
-    private AddPersonDialogListener addPersonDialogListener;
+    private AddPersonDialogListener listener;
+
+    public AddPersonDialog(AddPersonDialogListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -39,23 +42,11 @@ public class AddPersonDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String nickname = editTextAddPerson.getText().toString();
-                        addPersonDialogListener.addPerson(new Person(nickname));
+                        listener.addPerson(new Person(nickname));
                     }
                 });
 
         return builder.create();
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        try {
-            addPersonDialogListener = (AddPersonDialogListener) context;
-        }
-        catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + "must implement " + AddPersonDialogListener.class.getName());
-        }
     }
 
     public interface AddPersonDialogListener {

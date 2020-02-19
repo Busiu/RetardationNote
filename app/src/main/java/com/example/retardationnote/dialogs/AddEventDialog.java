@@ -1,7 +1,6 @@
 package com.example.retardationnote.dialogs;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,13 +26,17 @@ public class AddEventDialog extends AppCompatDialogFragment implements
 
     private DateTimePickerDialog dateTimePickerDialog;
 
-    private AddEventDialogListener addEventDialogListener;
+    private AddEventDialogListener listener;
 
     private int setYear;
     private int setMonth;
     private int setDay;
     private int setHour;
     private int setMinute;
+
+    public AddEventDialog(AddEventDialogListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -66,22 +69,11 @@ public class AddEventDialog extends AppCompatDialogFragment implements
                         String description = editTextAddDescribtion.getText().toString();
                         Calendar date = Calendar.getInstance();
                         date.set(setYear, setMonth, setDay, setHour, setMinute);
-                        addEventDialogListener.addEvent(new Event(description, date));
+                        listener.addEvent(new Event(description, date));
                     }
                 });
 
         return builder.create();
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            addEventDialogListener = (AddEventDialogListener) context;
-        }
-        catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + "must implement " + AddEventDialogListener.class.getName());
-        }
     }
 
     private void openDateTimePickerDialog() {

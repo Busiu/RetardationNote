@@ -70,7 +70,7 @@ public class PersonActivity extends AppCompatActivity implements
     }
 
     private void openAddEventDialog() {
-        addEventDialog = new AddEventDialog();
+        addEventDialog = new AddEventDialog(this);
         addEventDialog.show(getSupportFragmentManager(), "Adding Event");
     }
 

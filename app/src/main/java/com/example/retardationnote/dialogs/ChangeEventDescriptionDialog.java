@@ -1,7 +1,6 @@
 package com.example.retardationnote.dialogs;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +19,10 @@ public class ChangeEventDescriptionDialog extends AppCompatDialogFragment {
     private EditText editTextChangeDescribtion;
     private ChangeEventDescriptionDialogListener listener;
     private Event chosenEvent;
+
+    public ChangeEventDescriptionDialog(ChangeEventDescriptionDialogListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -49,17 +52,6 @@ public class ChangeEventDescriptionDialog extends AppCompatDialogFragment {
                 });
 
         return builder.create();
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            listener = (ChangeEventDescriptionDialogListener) context;
-        }
-        catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + "must implement " + ChangeEventDescriptionDialogListener.class.getName());
-        }
     }
 
     public interface ChangeEventDescriptionDialogListener {

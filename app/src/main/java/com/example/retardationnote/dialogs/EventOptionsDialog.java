@@ -87,7 +87,7 @@ public class EventOptionsDialog extends AppCompatDialogFragment implements
     }
 
     private void openChangeEventDescribtionDialog() {
-        changeEventDescriptionDialog = new ChangeEventDescriptionDialog();
+        changeEventDescriptionDialog = new ChangeEventDescriptionDialog(this);
         changeEventDescriptionDialog.show(getChildFragmentManager(), "Changing Event Describtion");
     }
 
