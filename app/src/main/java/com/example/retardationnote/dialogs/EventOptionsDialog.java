@@ -17,6 +17,7 @@ import com.example.retardationnote.utils.ChosenObjects;
 import java.util.Calendar;
 
 public class EventOptionsDialog extends AppCompatDialogFragment implements
+        ChangeEventDescriptionDialog.ChangeEventDescriptionDialogListener,
         DateTimePickerDialog.DateTimePickerDialogListener,
         SimpleDeleteDialog.SimpleDeleteDialogListener {
 
@@ -101,6 +102,11 @@ public class EventOptionsDialog extends AppCompatDialogFragment implements
     }
 
     @Override
+    public void changeEventDescribtion() {
+        listener.changeEventDescribtion();
+    }
+
+    @Override
     public void delete(Event event) {
         listener.deleteCurrentEvent(event);
     }
@@ -109,11 +115,15 @@ public class EventOptionsDialog extends AppCompatDialogFragment implements
     public void setDateTime(int year, int month, int day, int hour, int minute) {
         Calendar actualDate = Calendar.getInstance();
         actualDate.set(year, month, day, hour, minute);
+
+        dateTimePickerDialog.dismiss();
+
         chosenEvent.setActualDate(actualDate);
         listener.setActualDate();
     }
 
     public interface EventOptionsDialogListener {
+        void changeEventDescribtion();
         void deleteCurrentEvent(Event event);
         void setActualDate();
     }

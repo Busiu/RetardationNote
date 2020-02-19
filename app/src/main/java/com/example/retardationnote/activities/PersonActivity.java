@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class PersonActivity extends AppCompatActivity implements
         AddEventDialog.AddEventDialogListener,
-        ChangeEventDescriptionDialog.ChangeEventDescriptionDialogListener,
+
         EventOptionsDialog.EventOptionsDialogListener {
 
     private Button buttonAddEvent;
