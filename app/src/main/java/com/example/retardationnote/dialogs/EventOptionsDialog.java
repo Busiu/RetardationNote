@@ -1,7 +1,6 @@
 package com.example.retardationnote.dialogs;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,7 +85,7 @@ public class EventOptionsDialog extends AppCompatDialogFragment implements
     }
 
     private void openDeleteEventDialog() {
-        simpleDeleteDialog = new SimpleDeleteDialog(this);
+        simpleDeleteDialog = new SimpleDeleteDialog(this, chosenEvent);
         simpleDeleteDialog.show(getChildFragmentManager(), "Deleting Event");
     }
 
@@ -101,8 +100,8 @@ public class EventOptionsDialog extends AppCompatDialogFragment implements
     }
 
     @Override
-    public void delete(Event event) {
-        listener.deleteCurrentEvent(event);
+    public void simpleDelete(Object object) {
+        listener.deleteCurrentEvent((Event) object);
     }
 
     @Override

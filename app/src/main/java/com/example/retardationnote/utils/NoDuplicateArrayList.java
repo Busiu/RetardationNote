@@ -28,4 +28,9 @@ public class NoDuplicateArrayList<T> {
     public ArrayList<T> getArrayList() {
         return arrayList;
     }
+
+    public void remove(T e) {
+        arrayList.remove(e);
+        hashSet.remove(e);
+    }
 }

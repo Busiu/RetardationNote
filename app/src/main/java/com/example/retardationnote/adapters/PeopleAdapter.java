@@ -66,4 +66,9 @@ public class PeopleAdapter extends ArrayAdapter<Person> {
             Toast.makeText(getContext(), "Such a person already exists!", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void deletePerson(Person person) {
+        people.remove(person);
+        notifyDataSetChanged();
+    }
 }

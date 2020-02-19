@@ -2,12 +2,12 @@ package com.example.retardationnote.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.retardationnote.R;
 import com.example.retardationnote.adapters.PeopleAdapter;
@@ -76,5 +76,19 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void addPerson(Person person) {
         peopleAdaper.addPerson(person);
+        Toast.makeText(this, "Person added successfully!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void deleteCurrentPersonFailure() {
+        personOptionsDialog.dismiss();
+        Toast.makeText(this, "Failed to delete the person!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void deleteCurrentPersonSuccess(Person person) {
+        peopleAdaper.remove(person);
+        personOptionsDialog.dismiss();
+        Toast.makeText(this, "Person deleted successfully!", Toast.LENGTH_SHORT).show();
     }
 }

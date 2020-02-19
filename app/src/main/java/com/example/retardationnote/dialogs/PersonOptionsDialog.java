@@ -12,14 +12,21 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.retardationnote.R;
 import com.example.retardationnote.activities.PersonActivity;
+import com.example.retardationnote.model.Person;
+import com.example.retardationnote.utils.ChosenObjects;
 
-public class PersonOptionsDialog extends AppCompatDialogFragment {
+public class PersonOptionsDialog extends AppCompatDialogFragment implements
+        AdvancedDeleteDialog.AdvancedDeleteDialogListener {
 
     private Button buttonChangeNickname;
     private Button buttonDelete;
     private Button buttonShowEvents;
 
     private PersonOptionsDialogListener listener;
+
+    private AdvancedDeleteDialog advancedDeleteDialog;
+
+    private Person chosenPerson;
 
     public PersonOptionsDialog(PersonOptionsDialogListener listener) {
         this.listener = listener;
@@ -30,6 +37,7 @@ public class PersonOptionsDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_person_options, null);
+        chosenPerson = ChosenObjects.currentlyChosenPerson;
 
         buttonChangeNickname = view.findViewById(R.id.button_change_nickname);
         buttonChangeNickname.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +51,7 @@ public class PersonOptionsDialog extends AppCompatDialogFragment {
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                openAdvancedDeleteDialog();
             }
         });
 
@@ -61,13 +69,29 @@ public class PersonOptionsDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
+    private void openAdvancedDeleteDialog() {
+        advancedDeleteDialog = new AdvancedDeleteDialog(this, chosenPerson, chosenPerson.getNickname());
+        advancedDeleteDialog.show(getChildFragmentManager(), "Deleting person");
+    }
+
     private void openPersonActivity() {
         Intent intent = new Intent(getActivity(), PersonActivity.class);
         startActivity(intent);
         dismiss();
     }
 
-    public interface PersonOptionsDialogListener {
+    @Override
+    public void advancedDeleteFailure() {
+        listener.deleteCurrentPersonFailure();
+    }
 
+    @Override
+    public void advancedDeleteSuccess(Object object) {
+        listener.deleteCurrentPersonSuccess((Person) object);
+    }
+
+    public interface PersonOptionsDialogListener {
+        void deleteCurrentPersonFailure();
+        void deleteCurrentPersonSuccess(Person person);
     }
 }
