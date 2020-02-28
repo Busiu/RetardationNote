@@ -1,6 +1,9 @@
 package com.example.retardationnote.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,13 +16,16 @@ import com.example.retardationnote.R;
 import com.example.retardationnote.adapters.PeopleAdapter;
 import com.example.retardationnote.dialogs.AddPersonDialog;
 import com.example.retardationnote.dialogs.PersonOptionsDialog;
-import com.example.retardationnote.model.Person;
+import com.example.retardationnote.model.entities.Person;
 import com.example.retardationnote.utils.NoDuplicateArrayList;
 import com.example.retardationnote.utils.ChosenObjects;
+import com.example.retardationnote.viewmodel.MainActivityViewModel;
 
-public class MainActivity extends AppCompatActivity implements
-        AddPersonDialog.AddPersonDialogListener,
-        PersonOptionsDialog.PersonOptionsDialogListener {
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+    private MainActivityViewModel viewModel;
 
     private Button buttonAddPerson;
     private ListView listViewPeople;
@@ -34,10 +40,15 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        viewModel.getAllPeople().observe(this, new Observer<List<Person>>() {
+            @Override
+            public void onChanged(List<Person> people) {
+                Toast.makeText(MainActivity.this, "all people loaded", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        people.add(new Person("Piotr"));
-        people.add(new Person("Busiu"));
-
+        /*
         listViewPeople = findViewById(R.id.list_view_people);
         peopleAdaper = new PeopleAdapter(this, R.layout.list_view_people, people);
         listViewPeople.setAdapter(peopleAdaper);
@@ -55,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements
                 openAddPersonDialog();
             }
         });
+        */
+
     }
 
     @Override
@@ -62,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onDestroy();
     }
 
+    /*
     private void openPersonOptionsDialog(int position) {
         ChosenObjects.currentlyChosenPerson = people.get(position);
         personOptionsDialog = new PersonOptionsDialog(this);
@@ -91,4 +105,5 @@ public class MainActivity extends AppCompatActivity implements
         personOptionsDialog.dismiss();
         Toast.makeText(this, "Person deleted successfully!", Toast.LENGTH_SHORT).show();
     }
+     */
 }
