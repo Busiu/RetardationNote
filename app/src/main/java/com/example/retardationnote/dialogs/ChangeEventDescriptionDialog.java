@@ -11,7 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.retardationnote.R;
-import com.example.retardationnote.model.Event;
+import com.example.retardationnote.model.entities.Event;
 import com.example.retardationnote.utils.ChosenObjects;
 
 public class ChangeEventDescriptionDialog extends AppCompatDialogFragment {

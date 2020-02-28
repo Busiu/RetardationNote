@@ -1,4 +1,4 @@
-package com.example.retardationnote.model;
+package com.example.retardationnote.model.entities;
 
 import androidx.annotation.NonNull;
 

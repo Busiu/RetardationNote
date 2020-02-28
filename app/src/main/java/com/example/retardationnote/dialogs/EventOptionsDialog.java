@@ -10,7 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.retardationnote.R;
-import com.example.retardationnote.model.Event;
+import com.example.retardationnote.model.entities.Event;
 import com.example.retardationnote.utils.ChosenObjects;
 
 import java.util.Calendar;
@@ -111,7 +111,7 @@ public class EventOptionsDialog extends AppCompatDialogFragment implements
 
         dateTimePickerDialog.dismiss();
 
-        chosenEvent.setActualDate(actualDate);
+        //chosenEvent.setActualDate(actualDate);
         listener.setActualDate();
     }
 

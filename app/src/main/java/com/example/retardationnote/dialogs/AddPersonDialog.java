@@ -11,7 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.retardationnote.R;
-import com.example.retardationnote.model.Person;
+import com.example.retardationnote.model.entities.Person;
 
 public class AddPersonDialog extends AppCompatDialogFragment {
 

@@ -1,7 +1,7 @@
 package com.example.retardationnote.utils;
 
-import com.example.retardationnote.model.Event;
-import com.example.retardationnote.model.Person;
+import com.example.retardationnote.model.entities.Event;
+import com.example.retardationnote.model.entities.Person;
 
 public class ChosenObjects {
 

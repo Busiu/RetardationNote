@@ -1,11 +1,20 @@
-package com.example.retardationnote.model;
+package com.example.retardationnote.model.entities;
 
-import java.io.Serializable;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 
-public class Person implements Serializable {
+@Entity(tableName = "person_table")
+public class Person {
 
+    @NonNull
+    @PrimaryKey
     private String nickname;
+
+    @Ignore
     private ArrayList<Event> events;
 
     public Person(String nickname) {

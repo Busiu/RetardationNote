@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.retardationnote.R;
 import com.example.retardationnote.activities.PersonActivity;
-import com.example.retardationnote.model.Person;
+import com.example.retardationnote.model.entities.Person;
 import com.example.retardationnote.utils.ChosenObjects;
 
 public class PersonOptionsDialog extends AppCompatDialogFragment implements

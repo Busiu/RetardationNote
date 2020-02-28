@@ -13,7 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.retardationnote.R;
-import com.example.retardationnote.model.Event;
+import com.example.retardationnote.model.entities.Event;
 
 import java.util.Calendar;
 
@@ -69,7 +69,7 @@ public class AddEventDialog extends AppCompatDialogFragment implements
                         String description = editTextAddDescribtion.getText().toString();
                         Calendar date = Calendar.getInstance();
                         date.set(setYear, setMonth, setDay, setHour, setMinute);
-                        listener.addEvent(new Event(description, date));
+                        //listener.addEvent(new Event(description, date));
                     }
                 });
 

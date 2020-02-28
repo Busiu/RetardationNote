@@ -7,13 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.retardationnote.R;
-import com.example.retardationnote.model.Event;
+import com.example.retardationnote.model.entities.Event;
 
 import java.util.ArrayList;
 

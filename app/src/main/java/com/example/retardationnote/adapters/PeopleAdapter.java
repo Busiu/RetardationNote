@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.retardationnote.R;
-import com.example.retardationnote.model.Person;
+import com.example.retardationnote.model.entities.Person;
 import com.example.retardationnote.utils.NoDuplicateArrayList;
 
 public class PeopleAdapter extends ArrayAdapter<Person> {

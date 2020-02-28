@@ -12,10 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.retardationnote.R;
 import com.example.retardationnote.adapters.EventAdapter;
 import com.example.retardationnote.dialogs.AddEventDialog;
-import com.example.retardationnote.dialogs.ChangeEventDescriptionDialog;
 import com.example.retardationnote.dialogs.EventOptionsDialog;
-import com.example.retardationnote.model.Event;
-import com.example.retardationnote.model.Person;
+import com.example.retardationnote.model.entities.Event;
+import com.example.retardationnote.model.entities.Person;
 import com.example.retardationnote.utils.ChosenObjects;
 
 import java.util.ArrayList;
