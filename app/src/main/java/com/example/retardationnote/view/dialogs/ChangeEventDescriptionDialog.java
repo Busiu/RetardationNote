@@ -1,4 +1,4 @@
-package com.example.retardationnote.dialogs;
+package com.example.retardationnote.view.dialogs;
 
 import android.app.Dialog;
 import android.content.DialogInterface;

@@ -1,4 +1,4 @@
-package com.example.retardationnote.activities;
+package com.example.retardationnote.view.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,9 +10,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.retardationnote.R;
-import com.example.retardationnote.adapters.EventAdapter;
-import com.example.retardationnote.dialogs.AddEventDialog;
-import com.example.retardationnote.dialogs.EventOptionsDialog;
+import com.example.retardationnote.view.adapters.EventAdapter;
+import com.example.retardationnote.view.dialogs.AddEventDialog;
+import com.example.retardationnote.view.dialogs.EventOptionsDialog;
 import com.example.retardationnote.model.entities.Event;
 import com.example.retardationnote.model.entities.Person;
 import com.example.retardationnote.utils.ChosenObjects;

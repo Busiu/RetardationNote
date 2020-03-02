@@ -1,55 +1,55 @@
-package com.example.retardationnote.dialogs;
+package com.example.retardationnote.view.dialogs;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.retardationnote.R;
+import com.example.retardationnote.model.entities.Person;
 
-public class SimpleDeleteDialog extends AppCompatDialogFragment {
+public class AddPersonDialog extends AppCompatDialogFragment {
 
-    private TextView textViewInfo;
-    private SimpleDeleteDialogListener listener;
-    private Object chosenObject;
+    private EditText editTextAddPerson;
+    private AddPersonDialogListener listener;
 
-    public SimpleDeleteDialog(SimpleDeleteDialogListener listener, Object chosenObject) {
+    public AddPersonDialog(AddPersonDialogListener listener) {
         this.listener = listener;
-        this.chosenObject = chosenObject;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_simple_approval, null);
+        View view = inflater.inflate(R.layout.dialog_add_person, null);
 
-        textViewInfo = view.findViewById(R.id.text_view_info);
+        editTextAddPerson = view.findViewById(R.id.edit_text_add_person);
 
         builder.setView(view)
-                .setTitle("Delete Chosen Event")
+                .setTitle("Add Person")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 })
-                .setPositiveButton("delete", new DialogInterface.OnClickListener() {
+                .setPositiveButton("add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        listener.simpleDelete(chosenObject);
+                        String nickname = editTextAddPerson.getText().toString();
+                        listener.addPerson(new Person(nickname));
                     }
                 });
 
         return builder.create();
     }
 
-    public interface SimpleDeleteDialogListener {
-        void simpleDelete(Object object);
+    public interface AddPersonDialogListener {
+        void addPerson(Person person);
     }
 }

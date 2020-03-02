@@ -38,6 +38,7 @@ public abstract class RetardationNoteDatabase extends RoomDatabase {
                     context.getApplicationContext(),
                     RetardationNoteDatabase.class,
                     "retardation_note.db")
+                    .fallbackToDestructiveMigration()
                     .addCallback(populateCallback)
                     .build();
         }
@@ -48,7 +49,7 @@ public abstract class RetardationNoteDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            new PopulateDatabaseAsyncTask(instance);
+            new PopulateDatabaseAsyncTask(instance).execute();
         }
     };
 
@@ -64,6 +65,7 @@ public abstract class RetardationNoteDatabase extends RoomDatabase {
             personDao.insert(new Person("Busiu"));
             personDao.insert(new Person("Piotr"));
             personDao.insert(new Person("Bułka"));
+            personDao.insert(new Person("Krzysztof"));
             return null;
         }
     }

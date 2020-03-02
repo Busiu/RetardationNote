@@ -1,4 +1,4 @@
-package com.example.retardationnote.adapters;
+package com.example.retardationnote.view.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

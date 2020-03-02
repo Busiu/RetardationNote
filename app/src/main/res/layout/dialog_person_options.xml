@@ -21,13 +21,4 @@
         android:text="show events"
         android:textColor="@color/colorPrimaryDark" />
 
-    <Button
-        android:id="@+id/button_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/button_show_events"
-        android:layout_centerHorizontal="true"
-        android:text="delete"
-        android:textColor="@color/colorPrimaryDark" />
-
 </RelativeLayout>

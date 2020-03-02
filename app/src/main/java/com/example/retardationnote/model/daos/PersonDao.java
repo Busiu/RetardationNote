@@ -23,6 +23,6 @@ public interface PersonDao {
     @Update
     void update(Person person);
 
-    @Query("SELECT * FROM person_table ORDER BY nickname DESC")
+    @Query("SELECT * FROM person_table ORDER BY nickname ASC")
     LiveData<List<Person>> getAllPeople();
 }

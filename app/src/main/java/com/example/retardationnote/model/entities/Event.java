@@ -10,18 +10,21 @@ import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "event_table")
+@Entity(
+        tableName = "event_table",
+        foreignKeys = @ForeignKey(
+                entity = Person.class,
+                parentColumns = "nickname",
+                childColumns = "owner",
+                onDelete = CASCADE
+        )
+)
 public class Event {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @ForeignKey(
-            entity = Person.class,
-            parentColumns = "nickname",
-            childColumns = "owner",
-            onDelete = CASCADE
-    )
+    @ColumnInfo(index = true)
     private String owner;
 
     @ColumnInfo(name = "actual_date")
