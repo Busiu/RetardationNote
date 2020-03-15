@@ -11,12 +11,12 @@ import com.example.retardationnote.model.repositories.PersonRepository;
 
 import java.util.List;
 
-public class MainActivityViewModel extends AndroidViewModel {
+public class PeopleListActivityViewModel extends AndroidViewModel {
 
     private PersonRepository personRepository;
     private LiveData<List<Person>> allPeople;
 
-    public MainActivityViewModel(@NonNull Application application) {
+    public PeopleListActivityViewModel(@NonNull Application application) {
         super(application);
         personRepository = new PersonRepository(application);
         allPeople = personRepository.getAllPeople();

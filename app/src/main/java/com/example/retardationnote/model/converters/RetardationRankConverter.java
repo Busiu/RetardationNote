@@ -13,6 +13,9 @@ public class RetardationRankConverter {
 
     @TypeConverter
     public static String RetardationRankToString(RetardationRank retardationRank) {
+        if (retardationRank == null) {
+            return null;
+        }
         return retardationRank.toString();
     }
 }

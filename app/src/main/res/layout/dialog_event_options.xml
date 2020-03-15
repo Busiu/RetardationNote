@@ -21,13 +21,4 @@
         android:text="set actual date"
         android:textColor="@color/colorPrimaryDark" />
 
-    <Button
-        android:id="@+id/button_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/button_set_actual_date"
-        android:layout_centerHorizontal="true"
-        android:text="delete"
-        android:textColor="@color/colorPrimaryDark" />
-
 </RelativeLayout>

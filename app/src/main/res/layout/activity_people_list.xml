@@ -12,10 +12,10 @@
         android:text="add person" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_view_people"
+        android:id="@+id/recycler_view_people"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button_add_person"
-        tools:listitem="@layout/list_view_people"/>
+        tools:listitem="@layout/card_view_person" />
 
 </RelativeLayout>

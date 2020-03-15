@@ -11,23 +11,18 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.retardationnote.R;
-import com.example.retardationnote.view.activities.PersonActivity;
-import com.example.retardationnote.model.entities.Person;
-import com.example.retardationnote.utils.ChosenObjects;
+import com.example.retardationnote.view.activities.EventListActivity;
 
 public class PersonOptionsDialog extends AppCompatDialogFragment {
 
     private Button buttonChangeNickname;
     private Button buttonShowEvents;
 
-    private Person chosenPerson;
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_person_options, null);
-        chosenPerson = ChosenObjects.currentlyChosenPerson;
 
         buttonChangeNickname = view.findViewById(R.id.button_change_nickname);
         buttonChangeNickname.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +47,7 @@ public class PersonOptionsDialog extends AppCompatDialogFragment {
     }
 
     private void openPersonActivity() {
-        Intent intent = new Intent(getActivity(), PersonActivity.class);
+        Intent intent = new Intent(getActivity(), EventListActivity.class);
         startActivity(intent);
         dismiss();
     }

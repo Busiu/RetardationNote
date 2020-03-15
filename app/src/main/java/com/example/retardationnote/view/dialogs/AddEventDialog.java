@@ -16,6 +16,7 @@ import com.example.retardationnote.R;
 import com.example.retardationnote.model.entities.Event;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class AddEventDialog extends AppCompatDialogFragment implements
         DateTimePickerDialog.DateTimePickerDialogListener {
@@ -69,7 +70,7 @@ public class AddEventDialog extends AppCompatDialogFragment implements
                         String description = editTextAddDescribtion.getText().toString();
                         Calendar date = Calendar.getInstance();
                         date.set(setYear, setMonth, setDay, setHour, setMinute);
-                        //listener.addEvent(new Event(description, date));
+                        listener.addEvent(new Event(description, new Date()));
                     }
                 });
 

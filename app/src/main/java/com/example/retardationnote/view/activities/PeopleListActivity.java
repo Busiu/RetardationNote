@@ -18,15 +18,15 @@ import com.example.retardationnote.view.dialogs.AddPersonDialog;
 import com.example.retardationnote.view.dialogs.AdvancedDeleteDialog;
 import com.example.retardationnote.view.dialogs.PersonOptionsDialog;
 import com.example.retardationnote.model.entities.Person;
-import com.example.retardationnote.viewmodel.MainActivityViewModel;
+import com.example.retardationnote.viewmodel.PeopleListActivityViewModel;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements
+public class PeopleListActivity extends AppCompatActivity implements
         AddPersonDialog.AddPersonDialogListener,
         AdvancedDeleteDialog.AdvancedDeleteDialogListener {
 
-    private MainActivityViewModel viewModel;
+    private PeopleListActivityViewModel viewModel;
 
     private Button buttonAddPerson;
     private RecyclerView recyclerViewPeople;
@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_people_list);
 
-        recyclerViewPeople = findViewById(R.id.list_view_people);
+        recyclerViewPeople = findViewById(R.id.recycler_view_people);
         recyclerViewPeople.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewPeople.setHasFixedSize(true);
         peopleAdapter = new PeopleAdapter(this, getSupportFragmentManager());
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
 
-        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(PeopleListActivityViewModel.class);
         viewModel.getAllPeople().observe(this, new Observer<List<Person>>() {
             @Override
             public void onChanged(List<Person> people) {

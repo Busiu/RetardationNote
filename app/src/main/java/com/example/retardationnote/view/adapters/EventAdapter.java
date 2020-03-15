@@ -1,74 +1,96 @@
 package com.example.retardationnote.view.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.retardationnote.R;
 import com.example.retardationnote.model.entities.Event;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class EventAdapter extends ArrayAdapter<Event> {
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder> {
 
-    private ArrayList<Event> events;
+    private List<Event> events;
+    private OnItemClickListener onItemClickListener;
 
-    public EventAdapter(Context context, int layoutResourceId, ArrayList<Event> events) {
-        super(context, layoutResourceId, events);
-        this.events = events;
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 
-    private class ViewHolder {
-        private Button buttonRemove;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    class EventHolder extends RecyclerView.ViewHolder{
+        private Button buttonDelete;
         private TextView textViewRank;
         private TextView textViewDescribtion;
         private TextView textViewDate;
         private TextView textViewRetardation;
+
+        public EventHolder(View itemView) {
+            super(itemView);
+            buttonDelete = itemView.findViewById(R.id.button_delete);
+            textViewRank = itemView.findViewById(R.id.text_view_rank);
+            textViewDescribtion = itemView.findViewById(R.id.text_view_description);
+            textViewDate = itemView.findViewById(R.id.text_view_date);
+            textViewRetardation = itemView.findViewById(R.id.text_view_retardation);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            onItemClickListener.onItemClick(position);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    public EventAdapter() {
+        this.events = new ArrayList<>();
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        ViewHolder viewHolder = new ViewHolder();
-
-        if(convertView == null) {
-            LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-            convertView = layoutInflater.inflate(R.layout.list_view_events, parent, false);
-
-            viewHolder.buttonRemove = convertView.findViewById(R.id.button_remove);
-            viewHolder.textViewRank = convertView.findViewById(R.id.text_view_rank);
-            viewHolder.textViewDescribtion = convertView.findViewById(R.id.text_view_description);
-            viewHolder.textViewDate = convertView.findViewById(R.id.text_view_date);
-            viewHolder.textViewRetardation = convertView.findViewById(R.id.text_view_retardation);
-            convertView.setTag(viewHolder);
-        }
-        else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-
-        Event event = events.get(position);
-        viewHolder.textViewRank.setText(event.getRankToString());
-        viewHolder.textViewDescribtion.setText(event.getDescribtion());
-        viewHolder.textViewDate.setText(event.getPlannedDateToString());
-        viewHolder.textViewRetardation.setText(event.getRetardationToString());
-
-        return convertView;
+    public EventHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.card_view_event, parent, false);
+        return new EventHolder(itemView);
     }
 
-    public void addEvent(Event event) {
-        events.add(event);
-        notifyDataSetChanged();
+    @Override
+    public void onBindViewHolder(@NonNull EventHolder holder, int position) {
+        Event currentEvent = events.get(position);
+        holder.buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO
+            }
+        });
+        holder.textViewRank.setText(currentEvent.getRank().toString());
+        holder.textViewDescribtion.setText(currentEvent.getDescribtion());
+        holder.textViewDate.setText(currentEvent.getPlannedDate().toString());
+        holder.textViewRetardation.setText(currentEvent.getRetardationToString());
     }
 
-    public void deleteEvent(Event event) {
-        events.remove(event);
+    @Override
+    public int getItemCount() {
+        return events.size();
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
         notifyDataSetChanged();
     }
 }

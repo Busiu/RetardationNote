@@ -23,34 +23,34 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PersonHold
     private List<Person> people;
     private AdvancedDeleteDialogListener deleteListener;
     private FragmentManager fragmentManager;
-    private OnItemClickListener listener;
+    private OnItemClickListener onItemClickListener;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     class PersonHolder extends RecyclerView.ViewHolder {
-        private Button buttonRemove;
+        private Button buttonDelete;
         private TextView textViewNickname;
         private TextView textViewPoints;
 
         public PersonHolder(View itemView) {
             super(itemView);
-            buttonRemove = itemView.findViewById(R.id.button_remove);
+            buttonDelete = itemView.findViewById(R.id.button_delete);
             textViewNickname = itemView.findViewById(R.id.text_view_nickname);
             textViewPoints = itemView.findViewById(R.id.text_view_points);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (listener != null) {
+                    if (onItemClickListener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
-                            listener.onItemClick(position);
+                            onItemClickListener.onItemClick(position);
                         }
                     }
                 }
@@ -68,14 +68,14 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PersonHold
     @Override
     public PersonHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_view_people, parent, false);
+                .inflate(R.layout.card_view_person, parent, false);
         return new PersonHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PersonHolder holder, int position) {
         final Person currentPerson = people.get(position);
-        holder.buttonRemove.setOnClickListener(new View.OnClickListener() {
+        holder.buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openDeleteDialog(currentPerson);

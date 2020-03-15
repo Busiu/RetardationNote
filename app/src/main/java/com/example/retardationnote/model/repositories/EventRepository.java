@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import com.example.retardationnote.model.daos.EventDao;
 import com.example.retardationnote.model.RetardationNoteDatabase;
 import com.example.retardationnote.model.entities.Event;
+import com.example.retardationnote.model.entities.Person;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class EventRepository {
 
     private EventDao eventDao;
     private LiveData<List<Event>> allEvents;
+    private LiveData<List<Event>> allChosenPersonEvents;
 
     public EventRepository(Application application) {
         RetardationNoteDatabase database = RetardationNoteDatabase.getInstance(application);
@@ -32,6 +34,10 @@ public class EventRepository {
 
     public void delete(Event event) {
         new DeleteEventAsyncTask(eventDao).execute(event);
+    }
+
+    public LiveData<List<Event>> getAllChosenPersonEvents(Person person) {
+        return eventDao.getAllChosenPersonEvents(person.getNickname());
     }
 
     public LiveData<List<Event>> getAllEvents() {
