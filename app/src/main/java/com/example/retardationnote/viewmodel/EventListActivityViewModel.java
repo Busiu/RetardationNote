@@ -25,10 +25,11 @@ public class EventListActivityViewModel extends AndroidViewModel {
     private Person chosenPerson;
     private MutableLiveData<List<Event>> events;
 
-    public EventListActivityViewModel(@NonNull Application application) {
+    public EventListActivityViewModel(@NonNull Application application, String chosenPersonNickname) {
         super(application);
         eventRepository = new EventRepository(application);
         personRepository = new PersonRepository(application);
+        personWithEvents = personRepository.getPersonWithEvents(chosenPersonNickname);
     }
 
     public void insert(Event event) {
@@ -60,12 +61,5 @@ public class EventListActivityViewModel extends AndroidViewModel {
             events.setValue(personWithEvents.getValue().getEvents());
         }
         return events;
-    }
-
-    public LiveData<PersonWithEvents> getPersonWithEvents(String nickname) {
-        if (personWithEvents == null) {
-            personWithEvents = personRepository.getPersonWithEvents(nickname);
-        }
-        return personWithEvents;
     }
 }

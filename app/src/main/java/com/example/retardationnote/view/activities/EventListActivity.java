@@ -16,6 +16,7 @@ import com.example.retardationnote.view.adapters.EventAdapter;
 import com.example.retardationnote.view.dialogs.AddEventDialog;
 import com.example.retardationnote.model.entities.Event;
 import com.example.retardationnote.viewmodel.EventListActivityViewModel;
+import com.example.retardationnote.viewmodel.EventListActivityViewModelFactory;
 
 import java.util.List;
 
@@ -39,10 +40,10 @@ public class EventListActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_event_list);
 
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            chosenPersonNickname = bundle.getString("chosenPersonNickname");
+        if (bundle == null) {
             throw new NullPointerException();
         }
+        chosenPersonNickname = bundle.getString("chosenPersonNickname");
 
         recyclerViewEvents = findViewById(R.id.recycler_view_events);
         recyclerViewEvents.setLayoutManager(new LinearLayoutManager(this));
@@ -64,8 +65,11 @@ public class EventListActivity extends AppCompatActivity implements
             }
         });
 
-        viewModel = new ViewModelProvider(this).get(EventListActivityViewModel.class);
-        viewModel.getPersonWithEvents(chosenPersonNickname);
+        viewModel = new ViewModelProvider(
+                this,
+                new EventListActivityViewModelFactory(this.getApplication(), chosenPersonNickname))
+                .get(EventListActivityViewModel.class);
+
         viewModel.getAllEvents().observe(this, new Observer<List<Event>>() {
             @Override
             public void onChanged(List<Event> events) {

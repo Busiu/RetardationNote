@@ -38,6 +38,8 @@ public class PersonRepository {
     }
 
     public LiveData<PersonWithEvents> getPersonWithEvents(String nickname) {
+        System.out.println("XDDDDDDDDDDDDDDDDDDDD");
+        System.out.println(nickname);
         return personDao.getPersonWithEvents(nickname);
     }
 

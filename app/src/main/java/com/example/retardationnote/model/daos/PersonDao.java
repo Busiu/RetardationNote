@@ -29,6 +29,6 @@ public interface PersonDao {
     LiveData<List<Person>> getAllPeople();
 
     @Transaction
-    @Query("SELECT * FROM person_table WHERE nickname is :nickname")
+    @Query("SELECT * FROM person_table WHERE nickname=:nickname")
     LiveData<PersonWithEvents> getPersonWithEvents(String nickname);
 }

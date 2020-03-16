@@ -12,7 +12,8 @@ public class PersonWithEvents {
 
     @Relation(
             parentColumn = "nickname",
-            entityColumn = "owner"
+            entityColumn = "owner",
+            entity = Event.class
     )
     private List<Event> events;
 
