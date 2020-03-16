@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.retardationnote.R;
 import com.example.retardationnote.model.entities.Event;
-import com.example.retardationnote.utils.ChosenObjects;
 
 import java.util.Calendar;
 
@@ -41,7 +40,6 @@ public class EventOptionsDialog extends AppCompatDialogFragment implements
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_event_options, null);
-        chosenEvent = ChosenObjects.currentlyChosenEvent;
 
         buttonChangeDescribtion = view.findViewById(R.id.button_change_description);
         buttonChangeDescribtion.setOnClickListener(new View.OnClickListener() {
@@ -71,12 +69,6 @@ public class EventOptionsDialog extends AppCompatDialogFragment implements
                 .setTitle("Event Options");
 
         return builder.create();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        ChosenObjects.currentlyChosenEvent = null;
     }
 
     private void openChangeEventDescribtionDialog() {

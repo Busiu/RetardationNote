@@ -5,7 +5,7 @@
     android:padding="16dp" >
 
     <EditText
-        android:id="@+id/edit_text_add_person"
+        android:id="@+id/edit_text_nickname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nickname" />

@@ -28,7 +28,7 @@ public class PersonOptionsDialog extends AppCompatDialogFragment {
         buttonChangeNickname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                openChangePersonNicknameDialog();
             }
         });
 
@@ -44,6 +44,12 @@ public class PersonOptionsDialog extends AppCompatDialogFragment {
                 .setTitle("Person Options");
 
         return builder.create();
+    }
+
+    private void openChangePersonNicknameDialog() {
+        ChangePersonNicknameDialog dialog = new ChangePersonNicknameDialog();
+        dialog.show(getParentFragmentManager(), "Changing Person Nickname");
+        dismiss();
     }
 
     private void openPersonActivity() {

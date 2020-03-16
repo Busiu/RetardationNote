@@ -12,10 +12,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.retardationnote.R;
-import com.example.retardationnote.utils.ChosenObjects;
 import com.example.retardationnote.view.adapters.PeopleAdapter;
 import com.example.retardationnote.view.dialogs.AddPersonDialog;
 import com.example.retardationnote.view.dialogs.AdvancedDeleteDialog;
+import com.example.retardationnote.view.dialogs.ChangePersonNicknameDialog;
 import com.example.retardationnote.view.dialogs.PersonOptionsDialog;
 import com.example.retardationnote.model.entities.Person;
 import com.example.retardationnote.viewmodel.PeopleListActivityViewModel;
@@ -69,14 +69,15 @@ public class PeopleListActivity extends AppCompatActivity implements
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
     private void openAddPersonDialog() {
         addPersonDialog = new AddPersonDialog(this);
         addPersonDialog.show(getSupportFragmentManager(), "Adding Person");
+    }
+
+    private void openPersonOptionsDialog(int position) {
+        viewModel.setChosenPerson(peopleAdapter.getPerson(position));
+        personOptionsDialog = new PersonOptionsDialog();
+        personOptionsDialog.show(getSupportFragmentManager(), "Person Options");
     }
 
     @Override
@@ -94,11 +95,5 @@ public class PeopleListActivity extends AppCompatActivity implements
     @Override
     public void advancedDeleteFailure() {
         Toast.makeText(this, "Failed to delete the person!", Toast.LENGTH_SHORT).show();
-    }
-
-    private void openPersonOptionsDialog(int position) {
-        ChosenObjects.currentlyChosenPerson = peopleAdapter.getPerson(position);
-        personOptionsDialog = new PersonOptionsDialog();
-        personOptionsDialog.show(getSupportFragmentManager(), "Person Options");
     }
 }

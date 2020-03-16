@@ -39,7 +39,8 @@ public class Event {
 
     private String describtion;
 
-    public Event(String describtion, Date plannedDate) {
+    public Event(String owner, String describtion, Date plannedDate) {
+        this.owner = owner;
         this.describtion = describtion;
         this.plannedDate = plannedDate;
 

@@ -5,28 +5,30 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.retardationnote.model.entities.Event;
 import com.example.retardationnote.model.entities.Person;
+import com.example.retardationnote.model.entities.PersonWithEvents;
 import com.example.retardationnote.model.repositories.EventRepository;
-import com.example.retardationnote.utils.ChosenObjects;
+import com.example.retardationnote.model.repositories.PersonRepository;
 
 import java.util.List;
 
 public class EventListActivityViewModel extends AndroidViewModel {
 
     private EventRepository eventRepository;
+    private PersonRepository personRepository;
 
-    private final Person chosenPerson;
-    private LiveData<List<Event>> allChosenPersonEvents;
-    private LiveData<List<Event>> allEvents;
+    private LiveData<PersonWithEvents> personWithEvents;
+
+    private Person chosenPerson;
+    private MutableLiveData<List<Event>> events;
 
     public EventListActivityViewModel(@NonNull Application application) {
         super(application);
-        chosenPerson = ChosenObjects.currentlyChosenPerson;
         eventRepository = new EventRepository(application);
-        allChosenPersonEvents = eventRepository.getAllChosenPersonEvents(chosenPerson);
-        allEvents = eventRepository.getAllEvents();
+        personRepository = new PersonRepository(application);
     }
 
     public void insert(Event event) {
@@ -37,15 +39,33 @@ public class EventListActivityViewModel extends AndroidViewModel {
         eventRepository.update(event);
     }
 
+    public void update(Person person) {
+        personRepository.update(person);
+    }
+
     public void delete(Event event) {
         eventRepository.delete(event);
     }
 
-    public LiveData<List<Event>> getAllChosenPersonEvents() {
-        return allChosenPersonEvents;
+    public Person getChosenPerson() {
+        if (chosenPerson == null) {
+            chosenPerson = personWithEvents.getValue().getOwner();
+        }
+        return chosenPerson;
     }
 
     public LiveData<List<Event>> getAllEvents() {
-        return allEvents;
+        if (events == null) {
+            events = new MutableLiveData<>();
+            events.setValue(personWithEvents.getValue().getEvents());
+        }
+        return events;
+    }
+
+    public LiveData<PersonWithEvents> getPersonWithEvents(String nickname) {
+        if (personWithEvents == null) {
+            personWithEvents = personRepository.getPersonWithEvents(nickname);
+        }
+        return personWithEvents;
     }
 }

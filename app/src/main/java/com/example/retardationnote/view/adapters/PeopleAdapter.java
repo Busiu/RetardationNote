@@ -82,7 +82,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PersonHold
             }
         });
         holder.textViewNickname.setText(currentPerson.getNickname());
-        holder.textViewPoints.setText(currentPerson.getPointsToString());
+        holder.textViewPoints.setText(Integer.toString(currentPerson.getPoints()));
     }
 
     @Override

@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.retardationnote.R;
 import com.example.retardationnote.view.adapters.EventAdapter;
 import com.example.retardationnote.view.dialogs.AddEventDialog;
-import com.example.retardationnote.view.dialogs.EventOptionsDialog;
 import com.example.retardationnote.model.entities.Event;
-import com.example.retardationnote.utils.ChosenObjects;
 import com.example.retardationnote.viewmodel.EventListActivityViewModel;
 
 import java.util.List;
@@ -33,10 +31,18 @@ public class EventListActivity extends AppCompatActivity implements
     private AddEventDialog addEventDialog;
     //private EventOptionsDialog eventOptionsDialog;
 
+    private String chosenPersonNickname;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            chosenPersonNickname = bundle.getString("chosenPersonNickname");
+            throw new NullPointerException();
+        }
 
         recyclerViewEvents = findViewById(R.id.recycler_view_events);
         recyclerViewEvents.setLayoutManager(new LinearLayoutManager(this));
@@ -59,7 +65,8 @@ public class EventListActivity extends AppCompatActivity implements
         });
 
         viewModel = new ViewModelProvider(this).get(EventListActivityViewModel.class);
-        viewModel.getAllChosenPersonEvents().observe(this, new Observer<List<Event>>() {
+        viewModel.getPersonWithEvents(chosenPersonNickname);
+        viewModel.getAllEvents().observe(this, new Observer<List<Event>>() {
             @Override
             public void onChanged(List<Event> events) {
                 eventAdapter.setEvents(events);
@@ -67,14 +74,8 @@ public class EventListActivity extends AppCompatActivity implements
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ChosenObjects.currentlyChosenPerson = null;
-    }
-
     private void openAddEventDialog() {
-        addEventDialog = new AddEventDialog(this);
+        addEventDialog = new AddEventDialog(chosenPersonNickname, this);
         addEventDialog.show(getSupportFragmentManager(), "Adding Event");
     }
 

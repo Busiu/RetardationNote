@@ -3,39 +3,54 @@ package com.example.retardationnote.model.entities;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 
-@Entity(tableName = "person_table")
+@Entity(
+        tableName = "person_table",
+        indices = {
+                @Index(value = {"nickname"}, unique = true)
+        }
+)
 public class Person {
 
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
     @NonNull
-    @PrimaryKey
     private String nickname;
 
-    @Ignore
-    private ArrayList<Event> events;
+    private int points;
 
-    public Person(String nickname) {
+    public Person(@NonNull String nickname) {
         this.nickname = nickname;
-        this.events = new ArrayList<>();
+        this.points = 0;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getNickname() {
         return nickname;
     }
 
-    public ArrayList<Event> getEvents() {
-        return events;
+    public int getPoints() {
+        return points;
     }
 
-    public String getPointsToString() {
-        int points = 0;
-        for(Event event : events) {
-            points += event.getPoints();
-        }
-        return Integer.toString(points);
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNickname(@NonNull String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     @Override

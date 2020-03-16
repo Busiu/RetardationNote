@@ -8,18 +8,17 @@ import androidx.lifecycle.LiveData;
 import com.example.retardationnote.model.RetardationNoteDatabase;
 import com.example.retardationnote.model.daos.PersonDao;
 import com.example.retardationnote.model.entities.Person;
+import com.example.retardationnote.model.entities.PersonWithEvents;
 
 import java.util.List;
 
 public class PersonRepository {
 
     private PersonDao personDao;
-    private LiveData<List<Person>> allPeople;
 
     public PersonRepository(Application application) {
         RetardationNoteDatabase database = RetardationNoteDatabase.getInstance(application);
         personDao = database.personDao();
-        allPeople = personDao.getAllPeople();
     }
 
     public void insert(Person person) {
@@ -35,7 +34,11 @@ public class PersonRepository {
     }
 
     public LiveData<List<Person>> getAllPeople() {
-        return allPeople;
+        return personDao.getAllPeople();
+    }
+
+    public LiveData<PersonWithEvents> getPersonWithEvents(String nickname) {
+        return personDao.getPersonWithEvents(nickname);
     }
 
     private static class InsertPersonAsyncTask extends AsyncTask<Person, Void, Void> {

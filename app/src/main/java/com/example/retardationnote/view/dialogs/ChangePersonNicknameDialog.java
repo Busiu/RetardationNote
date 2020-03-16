@@ -6,21 +6,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.retardationnote.R;
 import com.example.retardationnote.model.entities.Person;
+import com.example.retardationnote.viewmodel.PeopleListActivityViewModel;
 
-public class AddPersonDialog extends AppCompatDialogFragment {
+public class ChangePersonNicknameDialog extends AppCompatDialogFragment {
 
-    private EditText editTextAddPerson;
-    private AddPersonDialogListener listener;
-
-    public AddPersonDialog(AddPersonDialogListener listener) {
-        this.listener = listener;
-    }
+    private PeopleListActivityViewModel viewModel;
+    private EditText editTextChangeNickname;
+    private Person chosenPerson;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -28,28 +28,31 @@ public class AddPersonDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_add_person, null);
 
-        editTextAddPerson = view.findViewById(R.id.edit_text_nickname);
+        viewModel = new ViewModelProvider(requireActivity()).get(PeopleListActivityViewModel.class);
+        chosenPerson = viewModel.getChosenPerson();
+
+        editTextChangeNickname = view.findViewById(R.id.edit_text_nickname);
+        editTextChangeNickname.setText(chosenPerson.getNickname());
 
         builder.setView(view)
-                .setTitle("Add Person")
+                .setTitle("Change Nickname")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 })
-                .setPositiveButton("add", new DialogInterface.OnClickListener() {
+                .setPositiveButton("change", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String nickname = editTextAddPerson.getText().toString();
-                        listener.addPerson(new Person(nickname));
+                        String newNickname = editTextChangeNickname.getText().toString();
+                        chosenPerson.setNickname(newNickname);
+                        viewModel.update(chosenPerson);
+                        viewModel.insert(new Person("xd"));
+                        Toast.makeText(getActivity(), "Person nickname changed successfully!", Toast.LENGTH_SHORT).show();
                     }
                 });
 
         return builder.create();
-    }
-
-    public interface AddPersonDialogListener {
-        void addPerson(Person person);
     }
 }

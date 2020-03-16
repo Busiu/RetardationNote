@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.retardationnote.R;
 import com.example.retardationnote.model.entities.Event;
-import com.example.retardationnote.utils.ChosenObjects;
 
 public class ChangeEventDescriptionDialog extends AppCompatDialogFragment {
 
@@ -29,7 +28,6 @@ public class ChangeEventDescriptionDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_change_event_description, null);
-        chosenEvent = ChosenObjects.currentlyChosenEvent;
 
         editTextChangeDescribtion = view.findViewById(R.id.edit_text_change_describtion);
         editTextChangeDescribtion.setText(chosenEvent.getDescribtion());

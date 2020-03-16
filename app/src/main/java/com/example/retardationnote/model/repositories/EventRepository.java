@@ -15,13 +15,10 @@ import java.util.List;
 public class EventRepository {
 
     private EventDao eventDao;
-    private LiveData<List<Event>> allEvents;
-    private LiveData<List<Event>> allChosenPersonEvents;
 
     public EventRepository(Application application) {
         RetardationNoteDatabase database = RetardationNoteDatabase.getInstance(application);
         eventDao = database.eventDao();
-        allEvents = eventDao.getAllEvents();
     }
 
     public void insert(Event event) {
@@ -34,14 +31,6 @@ public class EventRepository {
 
     public void delete(Event event) {
         new DeleteEventAsyncTask(eventDao).execute(event);
-    }
-
-    public LiveData<List<Event>> getAllChosenPersonEvents(Person person) {
-        return eventDao.getAllChosenPersonEvents(person.getNickname());
-    }
-
-    public LiveData<List<Event>> getAllEvents() {
-        return allEvents;
     }
 
     private static class InsertEventAsyncTask extends AsyncTask<Event, Void, Void> {

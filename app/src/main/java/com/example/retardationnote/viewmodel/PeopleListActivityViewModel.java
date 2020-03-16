@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.retardationnote.model.entities.Person;
 import com.example.retardationnote.model.repositories.PersonRepository;
@@ -15,6 +16,7 @@ public class PeopleListActivityViewModel extends AndroidViewModel {
 
     private PersonRepository personRepository;
     private LiveData<List<Person>> allPeople;
+    private Person chosenPerson;
 
     public PeopleListActivityViewModel(@NonNull Application application) {
         super(application);
@@ -36,5 +38,13 @@ public class PeopleListActivityViewModel extends AndroidViewModel {
 
     public LiveData<List<Person>> getAllPeople() {
         return allPeople;
+    }
+
+    public Person getChosenPerson() {
+        return chosenPerson;
+    }
+
+    public void setChosenPerson(Person chosenPerson) {
+        this.chosenPerson = chosenPerson;
     }
 }

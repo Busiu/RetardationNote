@@ -29,13 +29,16 @@ public class AddEventDialog extends AppCompatDialogFragment implements
 
     private AddEventDialogListener listener;
 
+    private String chosenPersonNickname;
+
     private int setYear;
     private int setMonth;
     private int setDay;
     private int setHour;
     private int setMinute;
 
-    public AddEventDialog(AddEventDialogListener listener) {
+    public AddEventDialog(String chosenPersonNickname, AddEventDialogListener listener) {
+        this.chosenPersonNickname = chosenPersonNickname;
         this.listener = listener;
     }
 
@@ -70,7 +73,7 @@ public class AddEventDialog extends AppCompatDialogFragment implements
                         String description = editTextAddDescribtion.getText().toString();
                         Calendar date = Calendar.getInstance();
                         date.set(setYear, setMonth, setDay, setHour, setMinute);
-                        listener.addEvent(new Event(description, new Date()));
+                        listener.addEvent(new Event(chosenPersonNickname, description, new Date()));
                     }
                 });
 
