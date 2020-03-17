@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.retardationnote.R;
+import com.example.retardationnote.model.entities.PersonWithEvents;
 import com.example.retardationnote.view.adapters.EventAdapter;
 import com.example.retardationnote.view.dialogs.AddEventDialog;
 import com.example.retardationnote.model.entities.Event;
@@ -70,10 +71,10 @@ public class EventListActivity extends AppCompatActivity implements
                 new EventListActivityViewModelFactory(this.getApplication(), chosenPersonNickname))
                 .get(EventListActivityViewModel.class);
 
-        viewModel.getAllEvents().observe(this, new Observer<List<Event>>() {
+        viewModel.getPersonWithEvents().observe(this, new Observer<PersonWithEvents>() {
             @Override
-            public void onChanged(List<Event> events) {
-                eventAdapter.setEvents(events);
+            public void onChanged(PersonWithEvents personWithEvents) {
+                eventAdapter.setEvents(personWithEvents.getEvents());
             }
         });
     }

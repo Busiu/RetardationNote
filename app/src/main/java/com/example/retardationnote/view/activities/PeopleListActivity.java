@@ -23,7 +23,6 @@ import com.example.retardationnote.viewmodel.PeopleListActivityViewModel;
 import java.util.List;
 
 public class PeopleListActivity extends AppCompatActivity implements
-        AddPersonDialog.AddPersonDialogListener,
         AdvancedDeleteDialog.AdvancedDeleteDialogListener {
 
     private PeopleListActivityViewModel viewModel;
@@ -70,7 +69,7 @@ public class PeopleListActivity extends AppCompatActivity implements
     }
 
     private void openAddPersonDialog() {
-        addPersonDialog = new AddPersonDialog(this);
+        addPersonDialog = new AddPersonDialog();
         addPersonDialog.show(getSupportFragmentManager(), "Adding Person");
     }
 
@@ -78,12 +77,6 @@ public class PeopleListActivity extends AppCompatActivity implements
         viewModel.setChosenPerson(peopleAdapter.getPerson(position));
         personOptionsDialog = new PersonOptionsDialog();
         personOptionsDialog.show(getSupportFragmentManager(), "Person Options");
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        viewModel.insert(person);
-        Toast.makeText(this, "Person added successfully!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

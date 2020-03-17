@@ -46,13 +46,16 @@ public class ChangePersonNicknameDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String newNickname = editTextChangeNickname.getText().toString();
-                        chosenPerson.setNickname(newNickname);
-                        viewModel.update(chosenPerson);
-                        viewModel.insert(new Person("xd"));
-                        Toast.makeText(getActivity(), "Person nickname changed successfully!", Toast.LENGTH_SHORT).show();
+                        changePerson(newNickname);
                     }
                 });
 
         return builder.create();
+    }
+
+    private void changePerson(String nickname) {
+        chosenPerson.setNickname(nickname);
+        viewModel.update(chosenPerson);
+        Toast.makeText(getActivity(), "Person nickname changed successfully!", Toast.LENGTH_SHORT).show();
     }
 }

@@ -22,9 +22,6 @@ public class EventListActivityViewModel extends AndroidViewModel {
 
     private LiveData<PersonWithEvents> personWithEvents;
 
-    private Person chosenPerson;
-    private MutableLiveData<List<Event>> events;
-
     public EventListActivityViewModel(@NonNull Application application, String chosenPersonNickname) {
         super(application);
         eventRepository = new EventRepository(application);
@@ -48,18 +45,7 @@ public class EventListActivityViewModel extends AndroidViewModel {
         eventRepository.delete(event);
     }
 
-    public Person getChosenPerson() {
-        if (chosenPerson == null) {
-            chosenPerson = personWithEvents.getValue().getOwner();
-        }
-        return chosenPerson;
-    }
-
-    public LiveData<List<Event>> getAllEvents() {
-        if (events == null) {
-            events = new MutableLiveData<>();
-            events.setValue(personWithEvents.getValue().getEvents());
-        }
-        return events;
+    public LiveData<PersonWithEvents> getPersonWithEvents() {
+        return personWithEvents;
     }
 }

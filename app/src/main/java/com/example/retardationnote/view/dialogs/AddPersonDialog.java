@@ -6,27 +6,28 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.retardationnote.R;
 import com.example.retardationnote.model.entities.Person;
+import com.example.retardationnote.viewmodel.PeopleListActivityViewModel;
 
 public class AddPersonDialog extends AppCompatDialogFragment {
 
+    private PeopleListActivityViewModel viewModel;
     private EditText editTextAddPerson;
-    private AddPersonDialogListener listener;
-
-    public AddPersonDialog(AddPersonDialogListener listener) {
-        this.listener = listener;
-    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_add_person, null);
+
+        viewModel = new ViewModelProvider(requireActivity()).get(PeopleListActivityViewModel.class);
 
         editTextAddPerson = view.findViewById(R.id.edit_text_nickname);
 
@@ -42,14 +43,15 @@ public class AddPersonDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String nickname = editTextAddPerson.getText().toString();
-                        listener.addPerson(new Person(nickname));
+                        addPerson(nickname);
                     }
                 });
 
         return builder.create();
     }
 
-    public interface AddPersonDialogListener {
-        void addPerson(Person person);
+    private void addPerson(String nickname) {
+        viewModel.insert(new Person(nickname));
+        Toast.makeText(getActivity(), "Person added successfully!", Toast.LENGTH_SHORT).show();
     }
 }
